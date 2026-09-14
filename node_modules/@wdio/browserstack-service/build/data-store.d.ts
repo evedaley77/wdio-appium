@@ -1,0 +1,2 @@
+export declare function getDataFromWorkers(): Record<string, object>[];
+export declare function saveWorkerData(data: Record<string, unknown>): void;

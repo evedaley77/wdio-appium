@@ -1,0 +1,96 @@
+import { isSomeWrapper } from '../matchers/modifiers/some.js';
+import { awaitElementOrArray, isElement, isStrictlyElementArray } from './elementsUtil.js';
+import { refreshElementArray } from './refetchElements.js';
+export async function executeCommandWithStrategy({ unresolvedElements, expectedValues, singleElementCompare, context: { isNot, iteration }, strategy = 'NewStrictMultipleElements', strictConfiguration = { allowEmptyElements: false, allowArrayWithSingleElement: false } }) {
+    const isSome = isSomeWrapper(unresolvedElements);
+    if (strategy === 'LegacyLooseMultipleElements') {
+        if (isSome) {
+            throw new Error('some(elements) works only when enabling `useToHaveTextStrictMultiElementsCompareStrategy`');
+        }
+        return legacyMultipleElementResultsStrategy(unresolvedElements, expectedValues, singleElementCompare, isNot);
+    }
+    const actualReceived = isSome ? unresolvedElements.elements : unresolvedElements;
+    return multipleElementResultsStrategy(actualReceived, expectedValues, singleElementCompare, { isNot, isSome, iteration }, strictConfiguration);
+}
+export const legacyMultipleElementResultsStrategy = async (unresolvedElements, expectedValues, singleElementCompare, _isNot) => {
+    const { selector, other, isEmptyElements } = await awaitElementOrArray(unresolvedElements);
+    const subject = selector ?? other;
+    if (!selector || isEmptyElements) {
+        return {
+            subject: subject,
+            success: false,
+            actual: undefined,
+            abort: true,
+        };
+    }
+    if (isElement(selector)) {
+        const compareResult = await singleElementCompare(selector, expectedValues);
+        return {
+            subject,
+            ...compareResult,
+        };
+    }
+    const settled = await Promise.allSettled(Array.from(selector).map((element, index) => singleElementCompare(element, expectedValues, index)));
+    const firstRejection = settled.find((r) => r.status === 'rejected');
+    if (firstRejection) {
+        throw firstRejection.reason;
+    }
+    const results = settled.map((r) => r.value);
+    return {
+        subject,
+        success: results.length > 0 && results.every((res) => res.success === true),
+        actual: results.map(({ actual: value }) => value),
+    };
+};
+export const multipleElementResultsStrategy = async (unresolvedElements, expectedValues, singleElementCompare, { isNot, isSome, iteration }, { allowEmptyElements = false, allowArrayWithSingleElement = false } = {}) => {
+    const { selector, other } = await awaitElementOrArray(unresolvedElements);
+    if (iteration > 0 && isStrictlyElementArray(selector)) {
+        await refreshElementArray(selector);
+    }
+    const subject = selector ?? other;
+    if (!selector || (Array.isArray(selector) && selector.length === 0)) {
+        return {
+            subject,
+            success: isNot ? !allowEmptyElements : false,
+            actual: undefined,
+            abort: !allowEmptyElements && !isStrictlyElementArray(selector),
+            context: { isSome },
+        };
+    }
+    if (isElement(selector)) {
+        const forceFailure = !allowArrayWithSingleElement && Array.isArray(expectedValues);
+        const compareResult = await singleElementCompare(selector, forceFailure ? undefined : expectedValues);
+        const success = forceFailure ? !!isNot : compareResult.success;
+        return { subject, success, actual: compareResult.actual, abort: forceFailure, context: { isSome } };
+    }
+    const lengthMismatch = Array.isArray(expectedValues) && expectedValues.length !== selector.length;
+    const settled = await Promise.allSettled(Array.from(selector).map(async (element, index) => {
+        const indexedExpected = Array.isArray(expectedValues) ? expectedValues[index] : expectedValues;
+        const forceElementFailure = Array.isArray(indexedExpected)
+            || (lengthMismatch && Array.isArray(expectedValues) && index >= expectedValues.length);
+        const compareResult = await singleElementCompare(element, forceElementFailure ? undefined : indexedExpected, index);
+        return forceElementFailure ? { success: false, actual: compareResult.actual } : compareResult;
+    }));
+    const firstRejection = settled.find((r) => r.status === 'rejected');
+    if (firstRejection) {
+        throw firstRejection.reason;
+    }
+    const results = settled.map((r) => r.value);
+    if (Array.isArray(expectedValues) && expectedValues.length > selector.length) {
+        results.push(...Array(expectedValues.length - selector.length).fill({ success: false, actual: undefined }));
+    }
+    if (lengthMismatch) {
+        return { subject, success: !!isNot, actual: results.map(({ actual }) => actual), context: { isSome } };
+    }
+    const isNotEmpty = results.length > 0;
+    const checkFn = isSome ? isAtLeastOneTrue : isAllTrue;
+    const checkNotFn = isSome ? isAtLeastOneFalse : isAllFalse;
+    const success = isNot
+        ? !(isNotEmpty && checkNotFn(results))
+        : isNotEmpty && checkFn(results);
+    return { subject, success, actual: results.map(({ actual }) => actual), context: { isSome } };
+};
+const isAllTrue = (results) => results.every((res) => res.success === true);
+const isAllFalse = (results) => results.every((res) => res.success === false);
+const isAtLeastOneTrue = (results) => results.some((res) => res.success === true);
+const isAtLeastOneFalse = (results) => results.some((res) => res.success === false);

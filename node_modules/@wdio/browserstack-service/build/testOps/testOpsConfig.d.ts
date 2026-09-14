@@ -1,0 +1,10 @@
+declare class TestOpsConfig {
+    enabled: boolean;
+    manuallySet: boolean;
+    private static _instance;
+    buildStopped: boolean;
+    buildHashedId?: string;
+    static getInstance(...args: unknown[]): TestOpsConfig;
+    constructor(enabled?: boolean, manuallySet?: boolean);
+}
+export default TestOpsConfig;

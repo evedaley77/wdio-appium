@@ -1,0 +1,8 @@
+Automation information:
+Capabilities for Browserstack
+
+
+
+Browserstack Details:
+appPath:
+bs://80f493115cc62846da02817b1b293a346976087f

@@ -1,0 +1,3 @@
+export declare const snapshot: (...args: unknown[]) => void;
+export declare const screenshot: (...args: unknown[]) => Promise<void>;
+export declare const screenshotApp: (...args: unknown[]) => Promise<void>;

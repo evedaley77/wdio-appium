@@ -1,0 +1,6 @@
+/**
+ * Applies test orchestration to the WebdriverIO test run
+ * This function is the main entry point for the orchestration integration
+ */
+export declare function applyOrchestrationIfEnabled(specs: string[], config: Record<string, any>): Promise<string[]>;
+export default applyOrchestrationIfEnabled;

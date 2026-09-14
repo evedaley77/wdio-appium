@@ -1,0 +1,41 @@
+# BrowserStack App Automate Configuration
+# CNN Mobile App — WebdriverIO + Appium + Mocha
+
+userName: ${BROWSERSTACK_USERNAME}
+accessKey: ${BROWSERSTACK_ACCESS_KEY}
+
+ app: ./apps/cnn-standard-production-release.apk
+ # app: bs://80f493115cc62846da02817b1b293a346976087f
+
+
+# Test Observability
+testObservability: true
+testObservabilityOptions:
+  projectName: wdio-appium
+  buildName: CNN Mobile App Tests
+  selfHeal: true
+
+# Platforms to run on
+platforms:
+  - platformName: android
+    deviceName: Samsung Galaxy S24 Ultra
+    platformVersion: 14.0
+    appiumVersion: 2.0.0
+
+  - platformName: android
+    deviceName: Google Pixel 7
+    platformVersion: 13.0
+    appiumVersion: 2.0.0
+
+    browserstack.debug: true
+    browserstack.networkLogs: true
+    browserstack.deviceLogs: true
+
+# Framework
+framework: webdriverio
+
+# Parallels
+parallels: 2
+
+# Build identifier
+buildIdentifier: "#${BUILD_NUMBER}"

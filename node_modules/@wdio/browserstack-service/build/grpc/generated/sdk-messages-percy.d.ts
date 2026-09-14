@@ -1,0 +1,15 @@
+import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+export declare const protobufPackage = "browserstack.sdk.v1";
+export interface Percy {
+    success: boolean;
+    percyCaptureMode: string;
+    percyBuildId: string;
+    isPercyAutoEnabled: boolean;
+}
+export declare const Percy: MessageFns<Percy>;
+export interface MessageFns<T> {
+    encode(message: T, writer?: BinaryWriter): BinaryWriter;
+    decode(input: BinaryReader | Uint8Array, length?: number): T;
+    fromJSON(object: any): T;
+    toJSON(message: T): unknown;
+}

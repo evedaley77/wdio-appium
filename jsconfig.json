@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "types": ["node"]
+  },
+  "include": [
+    "config/**/*.js",
+    "test/**/*.js",
+    "wdio.conf.js"
+  ],
+  "exclude": [
+    "node_modules",
+    "apps",
+    "log",
+    "logs",
+    "reports"
+  ]
+}
