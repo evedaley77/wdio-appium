@@ -4,9 +4,8 @@
 userName: ${BROWSERSTACK_USERNAME}
 accessKey: ${BROWSERSTACK_ACCESS_KEY}
 
- app: ./apps/cnn-standard-production-release.apk
- # app: bs://80f493115cc62846da02817b1b293a346976087f
-
+app: ./apps/cnn-standard-release.apk
+appiumVersion: 2.0.0
 
 # Test Observability
 testObservability: true
@@ -18,18 +17,21 @@ testObservabilityOptions:
 # Platforms to run on
 platforms:
   - platformName: android
-    deviceName: Samsung Galaxy S24 Ultra
-    platformVersion: 14.0
-    appiumVersion: 2.0.0
+    deviceName: Samsung Galaxy S26 Ultra
+    platformVersion: "16.0"
+    browserstackOptions:
+    
+      debug: true
+      networkLogs: true
+      deviceLogs: true
 
   - platformName: android
     deviceName: Google Pixel 7
-    platformVersion: 13.0
-    appiumVersion: 2.0.0
-
-    browserstack.debug: true
-    browserstack.networkLogs: true
-    browserstack.deviceLogs: true
+    platformVersion: "13.0"
+    browserstackOptions:
+      debug: true
+      networkLogs: true
+      deviceLogs: true
 
 # Framework
 framework: webdriverio
@@ -38,4 +40,4 @@ framework: webdriverio
 parallels: 2
 
 # Build identifier
-buildIdentifier: "#${BUILD_NUMBER}"
+buildIdentifier: '#${BUILD_NUMBER}'
