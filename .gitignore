@@ -2,4 +2,4 @@
 .env.*
 !.env.example
 .ds_store
-node_modules
+#node_modules
