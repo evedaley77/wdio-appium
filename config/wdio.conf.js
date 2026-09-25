@@ -15,7 +15,7 @@ export const config = {
                 sessionName: 'CNN US Android App - Test Session'
             },
             app: {
-                path: path.join(process.cwd(), 'apps/cnn-standard-production-release.apk'),
+                path: path.join(process.cwd(), 'apps/cnn-standard-release.apk'),
             },
             testReportFile: 'reports/test-report.xml',
             browserstackLocal: true
@@ -78,7 +78,7 @@ export const config = {
         //browserName: 'Chrome',
         'appium:deviceName': 'R5GL431X4VW',
         'appium:platformVersion': '16',
-        'appium:app': path.join(process.cwd(), 'apps/cnn-standard-production-release.apk'),
+        'appium:app': path.join(process.cwd(), 'apps/cnn-standard-release.apk'),
         'appium:appActivity':'com.cnn.mobile.android.phone.features.splash.SplashActivity',
         'appium:automationName': 'UiAutomator2'
     }],

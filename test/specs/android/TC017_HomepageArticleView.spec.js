@@ -35,25 +35,24 @@ async function completeOnboarding () {
     const editionVisible = await editionScreen.isDisplayed().catch(() => false)
     if (!editionVisible) return
 
-    await $('//android.widget.TextView[@text="Next"]').click()
-
-    const saveBtn = await $('//android.widget.TextView[@text="Save and continue"]')
-    await saveBtn.waitForDisplayed({ timeout: 5000 }).catch(() => {})
-    if (await saveBtn.isDisplayed().catch(() => false)) {
-        await saveBtn.click()
+    const clickWhenReady = async (selector, name, timeout = 15000) => {
+        const element = await $(selector)
+        await browser.waitUntil(async () => {
+            const visible = await element.isDisplayed().catch(() => false)
+            const enabled = await element.isEnabled().catch(() => false)
+            return visible && enabled
+        }, {
+            timeout,
+            interval: 500,
+            timeoutMsg: `${name} button was not ready to click`
+        })
+        await element.click()
     }
 
-    const allowBtn = await $('//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]')
-    await allowBtn.waitForDisplayed({ timeout: 5000 }).catch(() => {})
-    if (await allowBtn.isDisplayed().catch(() => false)) {
-        await allowBtn.click()
-    }
-
-    const agreeBtn = await $('//android.widget.TextView[@text="AGREE"]')
-    await agreeBtn.waitForDisplayed({ timeout: 5000 }).catch(() => {})
-    if (await agreeBtn.isDisplayed().catch(() => false)) {
-        await agreeBtn.click()
-    }
+    await clickWhenReady('//android.widget.Button[@text="Next"] | //android.widget.TextView[@text="Next"] | //*[@text="Next"]', 'Next')
+    await clickWhenReady('//android.widget.Button[@text="Save and continue"] | //android.widget.TextView[@text="Save and continue"] | //*[@text="Save and continue"]', 'Save and continue', 10000).catch(() => {})
+    await clickWhenReady('//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]', 'Allow notifications', 10000).catch(() => {})
+    await clickWhenReady('//android.widget.Button[@text="AGREE"] | //android.widget.TextView[@text="AGREE"] | //*[@text="AGREE"]', 'AGREE', 10000).catch(() => {})
 }
 
 async function installAnalyticsInWebview () {

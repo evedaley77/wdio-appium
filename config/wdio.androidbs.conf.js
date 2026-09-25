@@ -1,4 +1,7 @@
 import { config as baseConfig } from './wdio.conf.js'
+import { createAnalyticsHooks } from '../test/support/analytics.capture.js'
+
+const analyticsHooks = createAnalyticsHooks()
 
 export const config = {
 ...baseConfig,
@@ -11,6 +14,10 @@ connectionRetryTimeout: 180000,
 connectionRetryCount: 5,
 waitforTimeout: 30000,
 maxInstances: 1,
+mochaOpts: {
+    ui: 'bdd',
+    timeout: 180000
+},
 services: [
     [
         'browserstack',
@@ -18,7 +25,7 @@ services: [
             testObservability: true,
             testObservabilityOptions: {
                 projectName: 'CNN Android App',
-                buildName: 'CNN Android Homepage Load'
+                buildName: 'CNN Android HomepageLoad',
             },
             browserstackLocal: false
         }
@@ -35,7 +42,7 @@ capabilities: [
         'appium:platformVersion': '16.0',
         'appium:deviceName': 'Samsung Galaxy S26 Ultra',
         'appium:app': process.env.BROWSERSTACK_APP_ID ||
-            'bs://4209159c07672b2063bdec2a5d5bb32c8a94e837', // BrowserStack app URL
+            'bs://4209159c07672b2063bdec2a5d5bb32c8a94e837',
         'appium:automationName': 'UiAutomator2',
         'appium:appActivity': 'com.cnn.mobile.android.phone.features.splash.SplashActivity',
         'appium:appWaitActivity': 'com.cnn.mobile.android.phone.features.splash.SplashActivity',
@@ -44,14 +51,17 @@ capabilities: [
         'appium:orientation': 'PORTRAIT',
         'bstack:options': {
             projectName: 'CNN Android App',
-            buildName: 'CNN Android Homepage Load',
+            buildName: 'CNN Android HomepageLoad',
             sessionName: 'TC-001 Homepage Load',
             debug: true,
             networkLogs: true,
             deviceLogs: true
         }
     }
-]
+],
+before: analyticsHooks.before,
+afterCommand: analyticsHooks.afterCommand,
+after: analyticsHooks.after
 
 
 

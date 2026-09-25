@@ -36,7 +36,7 @@ async function findWebview (browser, timeout = 30000) {
     let webview
     await browser.waitUntil(async () => {
         const contexts = await browser.getContexts()
-        webview = contexts.find(context => context.startsWith('WEBVIEW'))
+        webview = contexts.find(context => context.startsWith('WEBVIEW_com.cnn'))
         return Boolean(webview)
     }, { timeout, interval: 1000, timeoutMsg: 'No WebView context became available for analytics capture' }).catch(() => {})
     return webview
@@ -126,22 +126,30 @@ export function createAnalyticsHooks () {
     let activeContext
     let collecting = false
     let captureInstalled = false
+    let webviewCaptureUnavailable = false
 
     return {
         async before () {
-            if (!browser.sessionId) return
+            if (!browser.sessionId || webviewCaptureUnavailable) return
             activeContext = await browser.getContext()
             const webview = await findWebview(browser)
             if (!webview) return
 
-            await browser.switchContext(webview)
-            await installAnalyticsCapture(browser)
-            captureInstalled = true
-            await browser.switchContext(activeContext)
+            try {
+                await browser.switchContext(webview)
+                await installAnalyticsCapture(browser)
+                captureInstalled = true
+                await browser.switchContext(activeContext)
+            } catch (error) {
+                webviewCaptureUnavailable = true
+                if (browser.sessionId) {
+                    console.warn(`Analytics capture unavailable: ${error.message}`)
+                }
+            }
         },
 
         async afterCommand () {
-            if (!browser.sessionId || !activeContext || collecting) return
+            if (!browser.sessionId || !activeContext || collecting || webviewCaptureUnavailable) return
             collecting = true
             try {
                 const currentContext = await browser.getContext()
@@ -156,6 +164,9 @@ export function createAnalyticsHooks () {
                 await collectAnalyticsEvents(browser)
                 await browser.switchContext(currentContext)
             } catch (error) {
+                if (/webview_devtools_remote|session not started|session not created/i.test(error.message)) {
+                    webviewCaptureUnavailable = true
+                }
                 if (browser.sessionId) {
                     console.warn(`Analytics capture skipped: ${error.message}`)
                 }
@@ -165,7 +176,7 @@ export function createAnalyticsHooks () {
         },
 
         async after () {
-            if (!browser.sessionId || !activeContext || collecting) return
+            if (!browser.sessionId || !activeContext || collecting || webviewCaptureUnavailable) return
             collecting = true
             try {
                 const currentContext = await browser.getContext()

@@ -13,29 +13,25 @@ describe('TC-002: Homepage Content Rendering', () => {
         const editionScreen = await $('//android.widget.TextView[@text="U.S. Edition"]')
         const editionVisible = await editionScreen.isDisplayed().catch(() => false)
         if (editionVisible) {
-            await $('//android.widget.TextView[@text="Next"]').click()
-            await browser.pause(3000)
-
-            const saveBtn = await $('//android.widget.TextView[@text="Save and continue"]')
-            const saveBtnVisible = await saveBtn.isDisplayed().catch(() => false)
-            if (saveBtnVisible) {
-                await saveBtn.click()
+            const clickWhenReady = async (selector, name, timeout = 15000) => {
+                const element = await $(selector)
+                await browser.waitUntil(async () => {
+                    const visible = await element.isDisplayed().catch(() => false)
+                    const enabled = await element.isEnabled().catch(() => false)
+                    return visible && enabled
+                }, {
+                    timeout,
+                    interval: 500,
+                    timeoutMsg: `${name} button was not ready to click`
+                })
+                await element.click()
                 await browser.pause(3000)
             }
 
-            const allowBtn = await $('//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]')
-            const allowVisible = await allowBtn.isDisplayed().catch(() => false)
-            if (allowVisible) {
-                await allowBtn.click()
-                await browser.pause(3000)
-            }
-
-            const agreeBtn = await $('//android.widget.TextView[@text="AGREE"]')
-            const agreeVisible = await agreeBtn.isDisplayed().catch(() => false)
-            if (agreeVisible) {
-                await agreeBtn.click()
-                await browser.pause(5000)
-            }
+            await clickWhenReady('//android.widget.Button[@text="Next"] | //android.widget.TextView[@text="Next"] | //*[@text="Next"]', 'Next')
+            await clickWhenReady('//android.widget.Button[@text="Save and continue"] | //android.widget.TextView[@text="Save and continue"] | //*[@text="Save and continue"]', 'Save and continue', 10000).catch(() => {})
+            await clickWhenReady('//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]', 'Allow notifications', 10000).catch(() => {})
+            await clickWhenReady('//android.widget.Button[@text="AGREE"] | //android.widget.TextView[@text="AGREE"] | //*[@text="AGREE"]', 'AGREE', 10000).catch(() => {})
         }
     })
 

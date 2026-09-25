@@ -7,125 +7,138 @@
 
 describe('TC-001: Homepage Load', () => {
 
-    it('should load the CNN homepage and fire a Pageview analytics event', async function () {
-        this.timeout(120000)
+    it('should load the CNN homepage and fire a Pageview analytics event', async () => {
+        // Wait for app to fully launch past splash screen.
+        await browser.pause(5000)
 
-        const homepageSelectors = [
-            { name: 'Homepage RecyclerView', selector: '//androidx.recyclerview.widget.RecyclerView[@resource-id="com.cnn.mobile.android.phone:id/recycler_view"]' },
-            { name: 'Homepage container', selector: '//android.widget.FrameLayout[@resource-id="com.cnn.mobile.android.phone:id/container"]' },
-            { name: 'Homepage bottom navigation', selector: '//android.widget.LinearLayout[@resource-id="com.cnn.mobile.android.phone:id/bottom_navigation"]' },
-            { name: 'Homepage WebView', selector: '//android.webkit.WebView' },
-            { name: 'Homepage ComposeView', selector: '//androidx.compose.ui.platform.ComposeView' }
-        ]
-        const editionScreen = await $('//android.widget.TextView[@text="U.S. Edition"]')
-        const findDisplayedHomepage = async () => {
-            for (const homepageSelector of homepageSelectors) {
-                const element = await $(homepageSelector.selector)
-                if (await element.isDisplayed().catch(() => false)) {
-                    return { element, name: homepageSelector.name }
-                }
-            }
-            return null
+        const contentFeed = await $('//androidx.recyclerview.widget.RecyclerView[@resource-id="com.cnn.mobile.android.phone:id/recycler_view"]')
+        const mainContainer = await $('//android.widget.FrameLayout[@resource-id="com.cnn.mobile.android.phone:id/container"]')
+        const homeTab = await $('~Home')
+        const agreeSelector = '//android.widget.Button[@text="AGREE"] | //android.widget.TextView[@text="AGREE"] | //*[@text="AGREE"]'
+        const clickWhenReady = async (selector, timeout = 15000) => {
+            const element = await $(selector)
+            await browser.waitUntil(async () => {
+                return await element.isDisplayed().catch(() => false) &&
+                    await element.isEnabled().catch(() => false)
+            }, { timeout, interval: 500 })
+            await element.click()
         }
-
-        // Wait for the app to leave the splash screen and expose either onboarding or the homepage.
-        await browser.waitUntil(async () => {
-            const onboardingVisible = await editionScreen.isDisplayed().catch(() => false)
-            return onboardingVisible || Boolean(await findDisplayedHomepage())
-        }, { timeout: 30000, timeoutMsg: 'CNN app did not leave the splash screen within 30s' })
 
         // Dismiss onboarding if present (edition selection screen)
+        const editionScreen = await $('//android.widget.TextView[@text="U.S. Edition"]')
         const editionVisible = await editionScreen.isDisplayed().catch(() => false)
         if (editionVisible) {
-            console.log('[TC-001] Screen displayed: U.S. Edition')
-            const nextBtn = await $('//android.widget.TextView[@text="Next"]')
-            await nextBtn.waitForDisplayed({
-                timeout: 10000,
-                timeoutMsg: 'CNN onboarding displayed, but the Next button was not available'
-            })
-            console.log('[TC-001] Screen element displayed: Next')
-            await nextBtn.click()
+            await clickWhenReady(
+                '//android.widget.Button[@text="Next"] | //android.widget.TextView[@text="Next"] | //*[@text="Next"]'
+            )
+            await browser.pause(5000)
 
             // Save and continue past alerts screen
-            const saveBtn = await $('//android.widget.TextView[@text="Save and continue"]')
-            if (await saveBtn.waitForDisplayed({ timeout: 10000 }).then(() => true).catch(() => false)) {
-                console.log('[TC-001] Screen element displayed: Save and continue')
-                await saveBtn.click()
-            }
+            await clickWhenReady(
+                '//android.widget.Button[@text="Save and continue"] | //android.widget.TextView[@text="Save and continue"] | //*[@text="Save and continue"]',
+                10000
+            ).catch(() => {})
+            await browser.pause(3000)
 
             // Allow notifications if prompted
-            const allowBtn = await $('//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]')
-            if (await allowBtn.waitForDisplayed({ timeout: 10000 }).then(() => true).catch(() => false)) {
-                console.log('[TC-001] Screen element displayed: Allow notifications')
-                await allowBtn.click()
-            }
-
-            // Agree to legal terms when the screen is displayed.
-            const agreeBtn = await $('//*[@text="AGREE"]')
-            if (await agreeBtn.waitForDisplayed({ timeout: 10000 }).then(() => true).catch(() => false)) {
-                console.log('[TC-001] Screen element displayed: AGREE')
-                await agreeBtn.click()
-            }
+            await clickWhenReady(
+                '//android.widget.Button[@resource-id="com.android.permissioncontroller:id/permission_allow_button"]',
+                10000
+            ).catch(() => {})
+            await browser.pause(3000)
         }
 
-        // Wait for a homepage surface after onboarding and network loading.
-        await browser.waitUntil(async () => Boolean(await findDisplayedHomepage()), {
-            timeout: 30000,
-            timeoutMsg: 'CNN homepage did not display within 30s'
+        // Legal terms can appear after a delayed permission screen or on their own.
+        await browser.waitUntil(async () => {
+            const homeVisible = await homeTab.isDisplayed().catch(() => false)
+            const agreeVisible = await $(agreeSelector).isDisplayed().catch(() => false)
+            return homeVisible || agreeVisible
+        }, { timeout: 30000, interval: 1000, timeoutMsg: 'CNN onboarding did not reach Home or Legal Terms within 30s' })
+
+        if (!await homeTab.isDisplayed().catch(() => false)) {
+            await clickWhenReady(agreeSelector, 15000)
+            await browser.pause(5000)
+        }
+
+        // The package is present during onboarding, so wait for actual homepage UI.
+        await browser.waitUntil(async () => {
+            const homeVisible = await homeTab.isDisplayed().catch(() => false)
+            if (!homeVisible) return false
+
+            const source = await driver.getPageSource().catch(() => '')
+            const homeLabelVisible = /content-desc="Home"|text="Home"/.test(source)
+            const feedVisible = await contentFeed.isDisplayed().catch(() => false)
+            const containerVisible = await mainContainer.isDisplayed().catch(() => false)
+            return homeLabelVisible && (feedVisible || containerVisible)
+        }, {
+            timeout: 60000,
+            interval: 1000,
+            timeoutMsg: 'CNN homepage Home tab and content surface did not load within 60s'
         })
 
-        await browser.switchContext('NATIVE_APP')
-        const nativeHomepageElements = [
-            { name: 'CNN homepage RecyclerView', selector: '//androidx.recyclerview.widget.RecyclerView[@resource-id="com.cnn.mobile.android.phone:id/recycler_view"]' },
-            { name: 'CNN homepage container', selector: '//android.widget.FrameLayout[@resource-id="com.cnn.mobile.android.phone:id/container"]' },
-            { name: 'CNN homepage bottom navigation', selector: '//android.widget.LinearLayout[@resource-id="com.cnn.mobile.android.phone:id/bottom_navigation"]' }
-        ]
-        for (const nativeHomepageElement of nativeHomepageElements) {
-            const element = await $(nativeHomepageElement.selector)
-            const displayed = await element.isDisplayed().catch(() => false)
-            console.log(`[TC-001] Native element ${nativeHomepageElement.name}: ${displayed ? 'displayed' : 'not displayed'}`)
-        }
+        // Verify the homepage surfaces remain visible after initial rendering.
+        const bottomNav = await $('//*[@resource-id="com.cnn.mobile.android.phone:id/bottom_navigation"]')
+        const bottomNavVisible = await bottomNav.isDisplayed().catch(() => false)
+        console.log('[TC-001] Bottom nav visible:', bottomNavVisible)
 
-        const homepage = await findDisplayedHomepage()
-        await expect(homepage.element).toBeDisplayed()
-        console.log(`[TC-001] Screen displayed: ${homepage.name}`)
+        await expect(homeTab).toBeDisplayed()
+        const homepageSurfaceVisible = await mainContainer.isDisplayed().catch(() => false) ||
+            await contentFeed.isDisplayed().catch(() => false)
+        expect(homepageSurfaceVisible).toBe(true)
 
-        // Fallback: verify any CNN content is on screen
-        const pageSource = await browser.getPageSource()
+        const pageSource = await driver.getPageSource()
         expect(pageSource).toContain('com.cnn.mobile.android.phone')
 
-        /*
-        // Activate the WebView so analytics hooks can inspect browser-side requests.
-        let webviewContext
-        await browser.waitUntil(async () => {
-            const contexts = await browser.getContexts()
-            webviewContext = contexts.find(context => context.startsWith('WEBVIEW'))
-            return Boolean(webviewContext)
-        }, {
-            timeout: 30000,
-            interval: 1000,
-            timeoutMsg: 'CNN homepage did not expose a debuggable WEBVIEW context within 30s'
-        })
-        await browser.switchContext(webviewContext)
-        const webviewState = await browser.execute(() => ({
-            readyState: document.readyState,
-            url: window.location.href
-        }))
-        expect(webviewState.readyState).toBe('complete')
-        console.log(`[TC-001] WebView activated: ${webviewContext} (${webviewState.url})`)
-        await browser.switchContext('NATIVE_APP')
-        */
-
-        // Keep the CNN homepage visible for review before the session closes.
-        await browser.waitUntil(async () => Boolean(await findDisplayedHomepage()), {
-            timeout: 10000,
-            timeoutMsg: 'CNN homepage was no longer visible before the review pause'
-        })
-        const finalHomepage = await findDisplayedHomepage()
-        console.log(`[TC-001] Screen displayed before review pause: ${finalHomepage.name}`)
-        console.log('[TC-001] Waiting for homepage to remain stable before closing')
-        await browser.pause(30000)
+        // Inspect only CNN WebViews; BrowserStack may expose unrelated app contexts.
+        const contexts = await browser.getContexts()
+        const webview = contexts.find(context => context.startsWith('WEBVIEW_com.cnn'))
+        if (webview) {
+            try {
+                await browser.switchContext(webview)
+                const analyticsEvents = await browser.execute(() => {
+                    return window.__wdioAnalyticsEvents || []
+                })
+                console.log('[TC-001] Analytics events captured:', JSON.stringify(analyticsEvents.slice(0, 5)))
+            } finally {
+                await browser.switchContext('NATIVE_APP')
+            }
+        }
 
         console.log('[TC-001] Homepage loaded successfully')
+
+        // Open Settings from the bottom navigation after the homepage is ready.
+        const settingsTab = await $('~Settings')
+        await settingsTab.waitForDisplayed({
+            timeout: 15000,
+            timeoutMsg: 'Settings option was not displayed in the bottom navigation'
+        })
+        await settingsTab.click()
+
+        // Open the subscription flow from Settings.
+        const subscribeOption = await $(
+            '//*[@text="Subscribe"] | ' +
+            '//*[@text="Subscribe Now"] | ' +
+            '//*[contains(@text,"Subscribe")]'
+        )
+        await subscribeOption.waitForDisplayed({
+            timeout: 20000,
+            timeoutMsg: 'Subscribe option was not displayed in Settings'
+        })
+        await subscribeOption.click()
+
+        // Select the first recognizable plan option shown by the subscription screen.
+        const planOption = await $(
+            '//*[@text="Monthly"] | ' +
+            '//*[@text="Annual"] | ' +
+            '//*[@text="Choose a plan"] | ' +
+            '//*[contains(@text,"Monthly")] | ' +
+            '//*[contains(@text,"Annual")]'
+        )
+        await planOption.waitForDisplayed({
+            timeout: 30000,
+            timeoutMsg: 'No subscription plan option was displayed after selecting Subscribe'
+        })
+        await planOption.click()
+        console.log('[TC-001] Settings opened, Subscribe selected, and a plan option clicked')
     })
 })

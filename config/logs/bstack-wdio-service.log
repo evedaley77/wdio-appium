@@ -1,0 +1,213 @@
+[90m2026-09-22T20:58:26.188Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m startMain: Starting main process
+[90m2026-09-22T20:58:26.188Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Configuring Cli path.
+[90m2026-09-22T20:58:26.188Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m File /Users/edaley/.browserstack already exist
+[90m2026-09-22T20:58:26.188Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m Current CLI Path Found: /Users/edaley/.browserstack/cli/binary-macos-arm64
+[90m2026-09-22T20:58:26.185Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m BrowserStack service started with id: 496fdcc5-1754-446e-8450-c055b7154c4a
+[90m2026-09-22T20:58:26.185Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m _options data: {"testObservability":true,"testObservabilityOptions":{"projectName":"CNN Android App","buildName":"CNN Android HomepageLoad"},"browserstackLocal":false}
+[90m2026-09-22T20:58:26.185Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m webdriver capabilities data: [{"platformName":"Android","appium:platformVersion":"16.0","appium:deviceName":"Samsung Galaxy S26 Ultra","appium:app":"bs://4209159c07672b2063bdec2a5d5bb32c8a94e837","appium:automationName":"UiAutomator2","appium:appActivity":"com.cnn.mobile.android.phone.features.splash.SplashActivity","appium:appWaitActivity":"com.cnn.mobile.android.phone.features.splash.SplashActivity","appium:newCommandTimeout":300,"appium:autoGrantPermissions":true,"appium:orientation":"PORTRAIT","bstack:options":{"projectName":"CNN Android App","buildName":"CNN Android HomepageLoad","sessionName":"TC-001 Homepage Load","debug":true,"networkLogs":true,"deviceLogs":true}}]
+[90m2026-09-22T20:58:26.186Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m _config data: {"rootDir":"/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/config","specs":["file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/test/specs/android/TC001_HomepageLoad.spec.js"],"suites":{},"exclude":[],"capabilities":[],"logLevel":"info","logLevels":{},"groupLogsByTestSpec":false,"excludeDriverLogs":[],"bail":0,"waitforInterval":100,"waitforTimeout":30000,"framework":"mocha","reporters":[["/Users/edaley/.vscode/extensions/webdriverio.vscode-webdriverio-0.4.2/dist/reporter.cjs",{"stdout":true,"outputDir":"/var/folders/_d/b0zwfkcs1m31bh7cjnb7fnw00000gp/T/vscode-webdriverio/result-dFKSnd"}],"spec"],"services":[["browserstack",{"testObservability":true,"testObservabilityOptions":{"projectName":"CNN Android App","buildName":"CNN Android HomepageLoad"},"browserstackLocal":false}]],"maxInstances":1,"maxInstancesPerCapability":100,"injectGlobals":true,"filesToWatch":[],"connectionRetryTimeout":180000,"connectionRetryCount":5,"execArgv":[],"runnerEnv":{},"runner":"local","shard":{"current":1,"total":1},"specFileRetries":0,"specFileRetriesDelay":0,"specFileRetriesDeferred":false,"autoAssertOnTestEnd":true,"reporterSyncInterval":100,"reporterSyncTimeout":5000,"cucumberFeaturesWithLineNumbers":[],"mochaOpts":{"timeout":60000,"ui":"bdd"},"jasmineOpts":{"defaultTimeoutInterval":10000},"cucumberOpts":{"timeout":10000},"onPrepare":[],"onWorkerStart":[],"onWorkerEnd":[],"before":[null],"beforeSession":[],"beforeSuite":[],"beforeHook":[],"beforeTest":[],"beforeCommand":[],"afterCommand":[null],"afterTest":[],"afterHook":[],"afterSuite":[],"afterSession":[],"after":[null],"onComplete":[],"onReload":[],"beforeAssertion":[],"afterAssertion":[],"beforeFeature":[],"beforeScenario":[],"beforeStep":[],"afterStep":[],"afterScenario":[],"afterFeature":[],"configPath":"/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/config/wdio.androidbs.conf.js","spec":["/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/test/specs/android/TC001_HomepageLoad.spec.js","/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/test/specs/android/TC001_HomepageLoad.spec.js"],"port":443,"hostname":"hub.browserstack.com","protocol":"https","path":"/wd/hub"}
+[90m2026-09-22T20:58:26.187Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m Your wdio config file, the local config files it imports and package.json are captured with the debug logs at the end of the run, with values under known credential keys removed. To disable, set disableAutoCaptureLogs: true in the browserstack service options.
+[90m2026-09-22T20:58:26.187Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Resolved wdio config file wdio.conf.js for auto-capture (strategy root_dir_default)
+[90m2026-09-22T20:58:26.187Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m username/accesskey not passed
+[90m2026-09-22T20:58:26.191Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:funnel:test-attempted: 53863.312209 -> 1790110706187.5212 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.407Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m response {"message":"Unauthorized"}
+[90m2026-09-22T20:58:27.411Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:cli:check-update: 53864.356834 -> 1790110706188.566 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.407Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Resolved binary path: /Users/edaley/.browserstack/cli/binary-macos-arm64
+[90m2026-09-22T20:58:27.407Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m spawning command='/Users/edaley/.browserstack/cli/binary-macos-arm64,sdk'
+[90m2026-09-22T20:58:27.770Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m CLI params loaded: {"id":"bdbaf181-236a-41e3-852c-2381f6c2af3e","listen":"unix:/tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock"}
+[90m2026-09-22T20:58:27.775Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:cli:start: 53863.938125 -> 1790110706188.1472 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.772Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m Connected to gRPC server at unix:/tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock
+[90m2026-09-22T20:58:27.772Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m Initialized gRPC client with bin session id: bdbaf181-236a-41e3-852c-2381f6c2af3e and listen address: unix:/tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock
+[90m2026-09-22T20:58:27.772Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m startMain: main-process started
+[90m2026-09-22T20:58:27.772Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m startBinSession: Calling startBinSession
+[90m2026-09-22T20:58:27.772Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m StartBinSession with clientWorkerId: 0-6735, platformIndex: 0
+[90m2026-09-22T20:58:27.790Z[39m [31mERROR[39m [97m@wdio/browserstack-service[39m StartBinSession error: Error: 2 UNKNOWN: userName or accessKey is not defined
+    at callErrorFromStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client.js:193:76)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:361:141)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:324:181)
+    at /Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client.js:161:32)
+    at ServiceClientImpl.startBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at node:internal/util:492:21
+    at new Promise (<anonymous>)
+    at ServiceClientImpl.<anonymous> (node:internal/util:478:12)
+    at _GrpcClient.startBinSession (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:11376:36)
+    at _BrowserstackCLI.startMain (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16878:57)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async _BrowserstackCLI.bootstrap (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16862:11)
+    at async BrowserstackLauncherService.onPrepare (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:19305:9) {
+  code: 2,
+  details: 'userName or accessKey is not defined',
+  metadata: Metadata {
+    internalRepr: Map(2) { 'content-type' => [Array], 'date' => [Array] },
+    options: {}
+  }
+}
+[90m2026-09-22T20:58:27.791Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:startBinSession: 55448.739 -> 1790110707772.948 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.790Z[39m [31mERROR[39m [97m@wdio/browserstack-service[39m Error in startBinSession: Error: 2 UNKNOWN: userName or accessKey is not defined
+    at callErrorFromStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client.js:193:76)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:361:141)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:324:181)
+    at /Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client.js:161:32)
+    at ServiceClientImpl.startBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at node:internal/util:492:21
+    at new Promise (<anonymous>)
+    at ServiceClientImpl.<anonymous> (node:internal/util:478:12)
+    at _GrpcClient.startBinSession (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:11376:36)
+    at _BrowserstackCLI.startMain (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16878:57)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async _BrowserstackCLI.bootstrap (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16862:11)
+    at async BrowserstackLauncherService.onPrepare (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:19305:9) {
+  code: 2,
+  details: 'userName or accessKey is not defined',
+  metadata: Metadata {
+    internalRepr: Map(2) { 'content-type' => [Array], 'date' => [Array] },
+    options: {}
+  }
+}
+[90m2026-09-22T20:58:27.791Z[39m [31mERROR[39m [97m@wdio/browserstack-service[39m bootstrap: failed to bootstrap Error: 2 UNKNOWN: userName or accessKey is not defined
+    at callErrorFromStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/call.js:32:19)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client.js:193:76)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:361:141)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client-interceptors.js:324:181)
+    at /Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/resolving-call.js:135:78
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/client.js:161:32)
+    at ServiceClientImpl.startBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/build/src/make-client.js:105:19)
+    at node:internal/util:492:21
+    at new Promise (<anonymous>)
+    at ServiceClientImpl.<anonymous> (node:internal/util:478:12)
+    at _GrpcClient.startBinSession (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:11376:36)
+    at _BrowserstackCLI.startMain (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16878:57)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async _BrowserstackCLI.bootstrap (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16862:11)
+    at async BrowserstackLauncherService.onPrepare (file:///Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:19305:9)
+[90m2026-09-22T20:58:27.791Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m stop: CLI stop triggered
+[90m2026-09-22T20:58:27.791Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Unconfiguring modules
+[90m2026-09-22T20:58:27.791Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m stop: shutting down CLI
+[90m2026-09-22T20:58:27.791Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:startBinSession: 55448.739 -> 1790110707772.948 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.799Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m stop: CLI process exited
+[90m2026-09-22T20:58:27.799Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Is CLI running false
+[90m2026-09-22T20:58:27.799Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m app is not defined in browserstack-service config, skipping ...
+[90m2026-09-22T20:58:27.799Z[39m [33mWARN[39m [97m@wdio/browserstack-service[39m Accessibility Automation will run only on Chrome browsers.
+[90m2026-09-22T20:58:27.799Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Sending launch start event
+[90m2026-09-22T20:58:27.801Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:automationFrameworkInit: 53863.082834 -> 1790110706187.2917 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.801Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:automationFrameworkStart: 53863.57375 -> 1790110706187.7827 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.801Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:cli:on-bootstrap: 53863.789959 -> 1790110706187.999 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.801Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:cli:on-stop: 55467.160834 -> 1790110707791.3699 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:27.801Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Setting runSmartSelection: enabled=false, mode=relevantFirst
+[90m2026-09-22T20:58:27.801Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [_extractBuildDetails] Extracted - projectName: undefined, buildName: undefined, buildIdentifier: undefined
+[90m2026-09-22T20:58:28.398Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [Start_Build] Success response: {"success":false,"errors":[{"message":"Access to BrowserStack denied due to incorrect credentials.","key":""}],"error_trace_id":"2699fad9-e8ea-4a47-84ce-6b74b81059a9"}
+[90m2026-09-22T20:58:28.398Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Test Plan Id sent in request: undefined
+[90m2026-09-22T20:58:28.398Z[39m [31mERROR[39m [97m@wdio/browserstack-service[39m TEST REPORTING AND ANALYTICS Build creation failed null
+[90m2026-09-22T20:58:28.399Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m browserstackLocal is not enabled - skipping...
+[90m2026-09-22T20:58:28.436Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:pre-test: 53862.801917 -> 1790110706187.011 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:28.436Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:testhub:start: 55475.403667 -> 1790110707799.6125 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:28.436Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:setup: 56077.357542 -> 1790110708401.5664 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:29.106Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m Starting as child process with session ID: bdbaf181-236a-41e3-852c-2381f6c2af3e
+[90m2026-09-22T20:58:29.107Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m Connected to gRPC server at unix:/tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock
+[90m2026-09-22T20:58:29.107Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Connecting bin session
+[90m2026-09-22T20:58:29.107Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m ConnectBinSession with clientWorkerId: 0-6808
+[90m2026-09-22T20:58:29.145Z[39m [31mERROR[39m [97m@wdio/browserstack-service[39m ConnectBinSession error: Error: 14 UNAVAILABLE: No connection established. Last error: Error: connect ECONNREFUSED /tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock
+    at callErrorFromStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/call.ts:82:17)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client.ts:360:55)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client-interceptors.ts:458:34)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client-interceptors.ts:419:48)
+    at <anonymous> (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/resolving-call.ts:169:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client.ts:325:42)
+    at ServiceClientImpl.connectBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/make-client.ts:189:15)
+    at node:internal/util:492:21
+    at new Promise (<anonymous>)
+    at ServiceClientImpl.<anonymous> (node:internal/util:478:12)
+    at _GrpcClient.connectBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:11410:36)
+    at _BrowserstackCLI.startChild (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:17146:59)
+    at _BrowserstackCLI.bootstrap (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16857:24)
+    at BrowserstackService.beforeSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:20664:45)
+    at _PerformanceTester.measure (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:1687:32) {
+  code: 14,
+  details: 'No connection established. Last error: Error: connect ECONNREFUSED /tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock',
+  metadata: Metadata { internalRepr: Map(0) {}, options: {} }
+}
+[90m2026-09-22T20:58:29.145Z[39m [31mERROR[39m [97m@wdio/browserstack-service[39m Error in connectBinSession: Error: 14 UNAVAILABLE: No connection established. Last error: Error: connect ECONNREFUSED /tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock
+    at callErrorFromStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/call.ts:82:17)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client.ts:360:55)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client-interceptors.ts:458:34)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client-interceptors.ts:419:48)
+    at <anonymous> (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/resolving-call.ts:169:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client.ts:325:42)
+    at ServiceClientImpl.connectBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/make-client.ts:189:15)
+    at node:internal/util:492:21
+    at new Promise (<anonymous>)
+    at ServiceClientImpl.<anonymous> (node:internal/util:478:12)
+    at _GrpcClient.connectBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:11410:36)
+    at _BrowserstackCLI.startChild (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:17146:59)
+    at _BrowserstackCLI.bootstrap (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16857:24)
+    at BrowserstackService.beforeSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:20664:45)
+    at _PerformanceTester.measure (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:1687:32) {
+  code: 14,
+  details: 'No connection established. Last error: Error: connect ECONNREFUSED /tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock',
+  metadata: Metadata { internalRepr: Map(0) {}, options: {} }
+}
+[90m2026-09-22T20:58:29.145Z[39m [31mERROR[39m [97m@wdio/browserstack-service[39m Failed to start as child process: Error: 14 UNAVAILABLE: No connection established. Last error: Error: connect ECONNREFUSED /tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock
+    at callErrorFromStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/call.ts:82:17)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client.ts:360:55)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client-interceptors.ts:458:34)
+    at Object.onReceiveStatus (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client-interceptors.ts:419:48)
+    at <anonymous> (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/resolving-call.ts:169:24)
+    at process.processTicksAndRejections (node:internal/process/task_queues:85:11)
+for call at
+    at ServiceClientImpl.makeUnaryRequest (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/client.ts:325:42)
+    at ServiceClientImpl.connectBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@grpc/grpc-js/src/make-client.ts:189:15)
+    at node:internal/util:492:21
+    at new Promise (<anonymous>)
+    at ServiceClientImpl.<anonymous> (node:internal/util:478:12)
+    at _GrpcClient.connectBinSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:11410:36)
+    at _BrowserstackCLI.startChild (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:17146:59)
+    at _BrowserstackCLI.bootstrap (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:16857:24)
+    at BrowserstackService.beforeSession (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:20664:45)
+    at _PerformanceTester.measure (/Users/edaley/Documents/WebDriverIO/scripts/wdio-appium/node_modules/@wdio/browserstack-service/build/index.js:1687:32) {
+  code: 14,
+  details: 'No connection established. Last error: Error: connect ECONNREFUSED /tmp/sdk-platform-bdbaf181-236a-41e3-852c-2381f6c2af3e.sock',
+  metadata: Metadata { internalRepr: Map(0) {}, options: {} }
+}
+[90m2026-09-22T20:58:29.146Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Device allocation tracking started - waiting for WebDriverIO to create remote session
+[90m2026-09-22T20:58:29.208Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:hook: 646.946083 -> 1790110709105.7231 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:29.208Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:driverInit: 647.049583 -> 1790110709105.8267 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:29.208Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:cli:on-bootstrap: 647.097041 -> 1790110709105.874 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:29.208Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:connectBinSession: 647.122625 -> 1790110709105.8997 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:29.208Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:connectBinSession: 647.122625 -> 1790110709105.8997 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:29.208Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:connectBinSession: 647.122625 -> 1790110709105.8997 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:29.208Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:findNearestHub: 686.941 -> 1790110709145.718 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:52.074Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m teardown started
+[90m2026-09-22T20:58:52.074Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m teardown ended
+[90m2026-09-22T20:58:52.075Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:hook:after: 23615.224333 -> 1790110732074.0015 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:52.075Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:driver:quit: 23615.228875 -> 1790110732074.0059 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:52.075Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:automate:session-status: 23615.259666 -> 1790110732074.0369 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:52.075Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:listener:worker-end: 23615.410916 -> 1790110732074.188 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:52.075Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:percy:teardown: 23615.628708 -> 1790110732074.4058 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:52.075Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:worker:save-data: 23615.652375 -> 1790110732074.4294 (timeOrigin: 1790110708458.777)
+[90m2026-09-22T20:58:52.450Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Inside OnComplete hook..
+[90m2026-09-22T20:58:52.450Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Sending stop launch event
+[90m2026-09-22T20:58:52.451Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [STOP_BUILD] Missing Authentication Token/ Build ID
+[90m2026-09-22T20:58:52.452Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:automationFrameworkStop: 80126.024709 -> 1790110732450.2336 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:52.452Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Timestamp conversion for sdk:testhub:stop: 80126.698667 -> 1790110732450.9077 (timeOrigin: 1790110652324.209)
+[90m2026-09-22T20:58:52.453Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m BrowserStack service run ended for id: 496fdcc5-1754-446e-8450-c055b7154c4a testhub id: undefined
+[90m2026-09-22T20:58:52.453Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m username/accesskey not passed
+[90m2026-09-22T20:58:52.453Z[39m [96mINFO[39m [97m@wdio/browserstack-service[39m If facing any issues, please contact BrowserStack support with the Build Run Id - 496fdcc5-1754-446e-8450-c055b7154c4a
+[90m2026-09-22T20:58:52.454Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m Uploading logs failed due to no credentials
+[90m2026-09-22T21:08:53.162Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [Performance Upload] Starting upload for worker 7478
+[90m2026-09-22T21:08:53.165Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [Performance Upload] Total events from files: 33
+[90m2026-09-22T21:08:54.015Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [Performance Upload] Successfully uploaded to EDS: Bravo
+[90m2026-09-22T21:08:54.017Z[39m [32mDEBUG[39m [97m@wdio/browserstack-service[39m [Performance Upload] Cleaned up 2 temporary report files

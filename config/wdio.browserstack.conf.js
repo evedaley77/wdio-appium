@@ -10,8 +10,7 @@
  *     OR leave app_url unset to use the local APK path (auto-uploaded by the service)
  */
 
-import path from 'path'
-import { createAnalyticsHooks } from './test/support/analytics.capture.js'
+import { createAnalyticsHooks } from '../test/support/analytics.capture.js'
 
 const analyticsHooks = createAnalyticsHooks()
 
@@ -47,18 +46,18 @@ export const config = {
     capabilities: [
         {
             platformName: 'Android',
-            'appium:deviceName': 'Samsung Galaxy S24 ultra',
-            'appium:platformVersion': '14.0',
+            'appium:deviceName': 'Samsung Galaxy S26 ultra',
+            'appium:platformVersion': '16.0',
             'appium:automationName': 'UiAutomator2',
             'appium:app': process.env.BROWSERSTACK_APP_ID ||
-                path.join(process.cwd(), 'apps/cnn-standard-production-release.apk'),
+                'bs://4209159c07672b2063bdec2a5d5bb32c8a94e837',
             'appium:appActivity': 'com.cnn.mobile.android.phone.features.splash.SplashActivity',
             'appium:autoGrantPermissions': true,
             'appium:newCommandTimeout': 300,
             'bstack:options': {
                 projectName: 'wdio-appium',
                 buildName: 'CNN Mobile App Tests',
-                sessionName: 'Android S24 ultra - CNN App',
+                sessionName: 'Android S26 ultra - CNN App',
                 debug: true,
                 networkLogs: true,
                 deviceLogs: true,
@@ -71,7 +70,7 @@ export const config = {
             'appium:platformVersion': '13.0',
             'appium:automationName': 'UiAutomator2',
             'appium:app': process.env.BROWSERSTACK_APP_ID ||
-                path.join(process.cwd(), 'apps/cnn-standard-production-release.apk'),
+                'bs://4209159c07672b2063bdec2a5d5bb32c8a94e837',
             'appium:appActivity': 'com.cnn.mobile.android.phone.features.splash.SplashActivity',
             'appium:autoGrantPermissions': true,
             'appium:newCommandTimeout': 300,
@@ -107,7 +106,7 @@ export const config = {
                     buildName: 'CNN Mobile App Tests'
                 },
                 app: process.env.BROWSERSTACK_APP_ID ||
-                    path.join(process.cwd(), 'apps/cnn-standard-production-release.apk'),
+                    'bs://4209159c07672b2063bdec2a5d5bb32c8a94e837',
                 browserstackLocal: false
             }
         ]
