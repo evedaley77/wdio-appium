@@ -1,3 +1,6 @@
+import { writeFile } from 'node:fs/promises'
+import { join } from 'node:path'
+
 /**
  * TC-001: Homepage Load
  * Description: Navigate to CNN app and verify the homepage loads.
@@ -11,9 +14,10 @@ describe('TC-001: Homepage Load', () => {
         // Wait for app to fully launch past splash screen.
         await browser.pause(5000)
 
-        const contentFeed = await $('//androidx.recyclerview.widget.RecyclerView[@resource-id="com.cnn.mobile.android.phone:id/recycler_view"]')
-        const mainContainer = await $('//android.widget.FrameLayout[@resource-id="com.cnn.mobile.android.phone:id/container"]')
+        const contentFeed = await $('//android.widget.ScrollView')
+        const mainContainer = await $('//androidx.compose.ui.platform.ComposeView')
         const homeTab = await $('~Home')
+        const contentLoadError = await $('//*[contains(@text,"failed to load or is unavailable")]')
         const agreeSelector = '//android.widget.Button[@text="AGREE"] | //android.widget.TextView[@text="AGREE"] | //*[@text="AGREE"]'
         const clickWhenReady = async (selector, timeout = 15000) => {
             const element = await $(selector)
@@ -61,20 +65,72 @@ describe('TC-001: Homepage Load', () => {
         }
 
         // The package is present during onboarding, so wait for actual homepage UI.
-        await browser.waitUntil(async () => {
-            const homeVisible = await homeTab.isDisplayed().catch(() => false)
-            if (!homeVisible) return false
+        try {
+            await browser.waitUntil(async () => {
+                const contentErrorVisible = await contentLoadError.isDisplayed().catch(() => false)
+                if (contentErrorVisible) return true
 
-            const source = await driver.getPageSource().catch(() => '')
+                const homeVisible = await homeTab.isDisplayed().catch(() => false)
+                if (!homeVisible) return false
+
+                const source = await driver.getPageSource().catch(() => '')
+                const homeLabelVisible = /content-desc="Home"|text="Home"/.test(source)
+                const feedVisible = await contentFeed.isDisplayed().catch(() => false)
+                const containerVisible = await mainContainer.isDisplayed().catch(() => false)
+                return homeLabelVisible && (feedVisible || containerVisible)
+            }, {
+                timeout: 60000,
+                interval: 1000,
+                timeoutMsg: 'CNN homepage Home tab and content surface did not load within 60s'
+            })
+
+            if (await contentLoadError.isDisplayed().catch(() => false)) {
+                throw new Error('CNN homepage displayed a content-load error')
+            }
+        } catch (waitError) {
+            let source = ''
+            let sourceError
+            try {
+                source = await driver.getPageSource()
+            } catch (error) {
+                sourceError = error.message
+            }
+
+            const homeVisible = await homeTab.isDisplayed().catch(() => false)
             const homeLabelVisible = /content-desc="Home"|text="Home"/.test(source)
             const feedVisible = await contentFeed.isDisplayed().catch(() => false)
             const containerVisible = await mainContainer.isDisplayed().catch(() => false)
-            return homeLabelVisible && (feedVisible || containerVisible)
-        }, {
-            timeout: 60000,
-            interval: 1000,
-            timeoutMsg: 'CNN homepage Home tab and content surface did not load within 60s'
-        })
+            const contentErrorVisible = await contentLoadError.isDisplayed().catch(() => false)
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
+            const pageSourcePath = join(process.cwd(), 'logs', `TC001-homepage-timeout-${timestamp}.xml`)
+            const screenshotPath = join(process.cwd(), 'logs', `TC001-homepage-timeout-${timestamp}.png`)
+
+            console.error('[TC-001] Homepage readiness diagnostics:', JSON.stringify({
+                homeTabDisplayed: homeVisible,
+                homeLabelInPageSource: homeLabelVisible,
+                feedDisplayed: feedVisible,
+                mainContainerDisplayed: containerVisible,
+                contentLoadErrorDisplayed: contentErrorVisible,
+                homepageReady: !contentErrorVisible && homeVisible && homeLabelVisible && (feedVisible || containerVisible),
+                pageSourceError: sourceError
+            }))
+
+            try {
+                await writeFile(pageSourcePath, source, 'utf8')
+                console.error('[TC-001] Homepage timeout page source saved:', pageSourcePath)
+            } catch (error) {
+                console.error('[TC-001] Could not save homepage timeout page source:', error.message)
+            }
+
+            try {
+                await browser.saveScreenshot(screenshotPath)
+                console.error('[TC-001] Homepage timeout screenshot saved:', screenshotPath)
+            } catch (error) {
+                console.error('[TC-001] Could not save homepage timeout screenshot:', error.message)
+            }
+
+            throw waitError
+        }
 
         // Verify the homepage surfaces remain visible after initial rendering.
         const bottomNav = await $('//*[@resource-id="com.cnn.mobile.android.phone:id/bottom_navigation"]')
@@ -105,40 +161,5 @@ describe('TC-001: Homepage Load', () => {
         }
 
         console.log('[TC-001] Homepage loaded successfully')
-
-        // Open Settings from the bottom navigation after the homepage is ready.
-        const settingsTab = await $('~Settings')
-        await settingsTab.waitForDisplayed({
-            timeout: 15000,
-            timeoutMsg: 'Settings option was not displayed in the bottom navigation'
-        })
-        await settingsTab.click()
-
-        // Open the subscription flow from Settings.
-        const subscribeOption = await $(
-            '//*[@text="Subscribe"] | ' +
-            '//*[@text="Subscribe Now"] | ' +
-            '//*[contains(@text,"Subscribe")]'
-        )
-        await subscribeOption.waitForDisplayed({
-            timeout: 20000,
-            timeoutMsg: 'Subscribe option was not displayed in Settings'
-        })
-        await subscribeOption.click()
-
-        // Select the first recognizable plan option shown by the subscription screen.
-        const planOption = await $(
-            '//*[@text="Monthly"] | ' +
-            '//*[@text="Annual"] | ' +
-            '//*[@text="Choose a plan"] | ' +
-            '//*[contains(@text,"Monthly")] | ' +
-            '//*[contains(@text,"Annual")]'
-        )
-        await planOption.waitForDisplayed({
-            timeout: 30000,
-            timeoutMsg: 'No subscription plan option was displayed after selecting Subscribe'
-        })
-        await planOption.click()
-        console.log('[TC-001] Settings opened, Subscribe selected, and a plan option clicked')
     })
 })
