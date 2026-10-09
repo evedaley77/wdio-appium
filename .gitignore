@@ -3,3 +3,8 @@
 !.env.example
 .ds_store
 #node_modules
+
+# App builds exceed GitHub's 100 MB limit; BrowserStack runs resolve the app
+# from BROWSERSTACK_APP_ID instead.
+apps/*.apk
+apps/**/*.ipa
