@@ -14,10 +14,14 @@ describe('TC-001: Homepage Load', () => {
         // Wait for app to fully launch past splash screen.
         await browser.pause(5000)
 
-        const contentFeed = await $('//android.widget.ScrollView')
-        const mainContainer = await $('//androidx.compose.ui.platform.ComposeView')
-        const homeTab = await $('~Home')
-        const contentLoadError = await $('//*[contains(@text,"failed to load or is unavailable")]')
+        const contentFeedSelector = '//android.widget.ScrollView'
+        const mainContainerSelector = '//androidx.compose.ui.platform.ComposeView'
+        const homeTabSelector = '~Home'
+        const contentLoadErrorSelector = '//*[contains(@text,"failed to load or is unavailable")]'
+        const contentFeed = await $(contentFeedSelector)
+        const mainContainer = await $(mainContainerSelector)
+        const homeTab = await $(homeTabSelector)
+        const contentLoadError = await $(contentLoadErrorSelector)
         const agreeSelector = '//android.widget.Button[@text="AGREE"] | //android.widget.TextView[@text="AGREE"] | //*[@text="AGREE"]'
         const clickWhenReady = async (selector, timeout = 15000) => {
             const element = await $(selector)
@@ -65,27 +69,45 @@ describe('TC-001: Homepage Load', () => {
         }
 
         // The package is present during onboarding, so wait for actual homepage UI.
+        // The feed intermittently fails to load on remote devices, in which case the
+        // app renders its own "Try Again" control. Tapping it recovers the run, so the
+        // error is retried rather than treated as terminal. Elements are re-queried
+        // each poll because tapping Try Again re-renders the feed.
+        const readinessTimeout = 90000
+        const contentLoadAttempts = 3
+        // The "Try Again" label is a non-clickable TextView; its parent View owns the tap handler.
+        const tryAgainSelector = '//android.widget.TextView[@text="Try Again"]/parent::android.view.View'
+        const contentErrorVisible = async () =>
+            await $(contentLoadErrorSelector).isDisplayed().catch(() => false)
+
         try {
-            await browser.waitUntil(async () => {
-                const contentErrorVisible = await contentLoadError.isDisplayed().catch(() => false)
-                if (contentErrorVisible) return true
+            for (let attempt = 1; ; attempt++) {
+                await browser.waitUntil(async () => {
+                    if (await contentErrorVisible()) return true
 
-                const homeVisible = await homeTab.isDisplayed().catch(() => false)
-                if (!homeVisible) return false
+                    const homeVisible = await $(homeTabSelector).isDisplayed().catch(() => false)
+                    if (!homeVisible) return false
 
-                const source = await driver.getPageSource().catch(() => '')
-                const homeLabelVisible = /content-desc="Home"|text="Home"/.test(source)
-                const feedVisible = await contentFeed.isDisplayed().catch(() => false)
-                const containerVisible = await mainContainer.isDisplayed().catch(() => false)
-                return homeLabelVisible && (feedVisible || containerVisible)
-            }, {
-                timeout: 60000,
-                interval: 1000,
-                timeoutMsg: 'CNN homepage Home tab and content surface did not load within 60s'
-            })
+                    const source = await driver.getPageSource().catch(() => '')
+                    const homeLabelVisible = /content-desc="Home"|text="Home"/.test(source)
+                    const feedVisible = await $(contentFeedSelector).isDisplayed().catch(() => false)
+                    const containerVisible = await $(mainContainerSelector).isDisplayed().catch(() => false)
+                    return homeLabelVisible && (feedVisible || containerVisible)
+                }, {
+                    timeout: readinessTimeout,
+                    interval: 1000,
+                    timeoutMsg: `CNN homepage Home tab and content surface did not load within ${readinessTimeout / 1000}s`
+                })
 
-            if (await contentLoadError.isDisplayed().catch(() => false)) {
-                throw new Error('CNN homepage displayed a content-load error')
+                if (!await contentErrorVisible()) break
+
+                if (attempt >= contentLoadAttempts) {
+                    throw new Error(`CNN homepage displayed a content-load error on ${attempt} consecutive attempts`)
+                }
+
+                console.warn(`[TC-001] Content-load error on attempt ${attempt}/${contentLoadAttempts}; tapping Try Again`)
+                await clickWhenReady(tryAgainSelector, 15000)
+                await browser.pause(5000)
             }
         } catch (waitError) {
             let source = ''

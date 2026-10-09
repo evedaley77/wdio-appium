@@ -6,21 +6,6 @@ export const config = {
     //======================    
     user: process.env.BROWSERSTACK_USERNAME,
     key: process.env.BROWSERSTACK_ACCESS_KEY,
-    services: [
-        ['browserstack', {
-            testReporting: true,
-            testReportingOptions: {
-                projectName: 'CNN US Android App',
-                buildName: 'CNN US Android App - Build 1',
-                sessionName: 'CNN US Android App - Test Session'
-            },
-            app: {
-                path: path.join(process.cwd(), 'apps/cnn-standard-release.apk'),
-            },
-            testReportFile: 'reports/test-report.xml',
-            browserstackLocal: true
-        }]
-    ],
     //
     // ====================
     // Runner Configuration
@@ -44,7 +29,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/**/*.js'
+        '../test/specs/android/**/*.spec.js'
     ],
     // Patterns to exclude.
     exclude: [

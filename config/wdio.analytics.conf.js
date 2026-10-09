@@ -3,6 +3,9 @@
  * Extends the shared base config from wdio.conf.js
  */
 import { config as baseConfig } from './wdio.conf.js'
+import { createNetworkLogHooks } from '../test/support/network.logs.js'
+
+const networkLogHooks = createNetworkLogHooks()
 
 export const config = {
     ...baseConfig,
@@ -66,5 +69,8 @@ export const config = {
     mochaOpts: {
         ui: 'bdd',
         timeout: 180000
-    }
+    },
+
+    before: networkLogHooks.rememberSession,
+    afterSession: networkLogHooks.afterSession
 }

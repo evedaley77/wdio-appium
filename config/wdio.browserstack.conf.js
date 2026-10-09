@@ -11,8 +11,10 @@
  */
 
 import { createAnalyticsHooks } from '../test/support/analytics.capture.js'
+import { createNetworkLogHooks } from '../test/support/network.logs.js'
 
 const analyticsHooks = createAnalyticsHooks()
+const networkLogHooks = createNetworkLogHooks()
 
 export const config = {
     // ==================
@@ -24,7 +26,7 @@ export const config = {
     // Test Files
     // ==================
     specs: [
-        './test/specs/**/*.js'
+        '../test/specs/android/**/*.spec.js'
     ],
     exclude: [],
 
@@ -123,7 +125,11 @@ export const config = {
     // ==================
     // Hooks (analytics capture)
     // ==================
-    before: analyticsHooks.before,
+    before: async function (capabilities, specs) {
+        networkLogHooks.rememberSession()
+        await analyticsHooks.before(capabilities, specs)
+    },
     afterCommand: analyticsHooks.afterCommand,
-    after: analyticsHooks.after
+    after: analyticsHooks.after,
+    afterSession: networkLogHooks.afterSession
 }

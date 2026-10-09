@@ -1,7 +1,9 @@
 import { config as baseConfig } from './wdio.conf.js'
 import { createAnalyticsHooks } from '../test/support/analytics.capture.js'
+import { createNetworkLogHooks } from '../test/support/network.logs.js'
 
 const analyticsHooks = createAnalyticsHooks()
+const networkLogHooks = createNetworkLogHooks()
 
 export const config = {
 ...baseConfig,
@@ -60,9 +62,13 @@ capabilities: [
         }
     }
 ],
-before: analyticsHooks.before,
+before: async function (capabilities, specs) {
+    networkLogHooks.rememberSession()
+    await analyticsHooks.before(capabilities, specs)
+},
 afterCommand: analyticsHooks.afterCommand,
-after: analyticsHooks.after
+after: analyticsHooks.after,
+afterSession: networkLogHooks.afterSession
 
 
 

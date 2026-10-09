@@ -38,7 +38,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/android'
+        './test/specs/android/**/*.spec.js'
     ],
     // Patterns to exclude.
     exclude: [

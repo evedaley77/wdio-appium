@@ -42,6 +42,16 @@ async function findWebview (browser, timeout = 30000) {
     return webview
 }
 
+/**
+ * Single-shot context probe. Used on the per-command path, where a blocking
+ * waitUntil would add its full timeout to every WebdriverIO command on a
+ * native screen that has no WebView.
+ */
+async function probeWebview (browser) {
+    const contexts = await browser.getContexts().catch(() => [])
+    return contexts.find(context => context.startsWith('WEBVIEW_com.cnn'))
+}
+
 export function installAnalyticsCapture (browser) {
     return browser.execute(() => {
         if (window.__wdioAnalyticsCaptureInstalled) {
@@ -153,7 +163,7 @@ export function createAnalyticsHooks () {
             collecting = true
             try {
                 const currentContext = await browser.getContext()
-                const webview = await findWebview(browser, 5000)
+                const webview = await probeWebview(browser)
                 if (!webview) return
 
                 await browser.switchContext(webview)
@@ -180,7 +190,7 @@ export function createAnalyticsHooks () {
             collecting = true
             try {
                 const currentContext = await browser.getContext()
-                const webview = await findWebview(browser, 5000)
+                const webview = await probeWebview(browser)
                 if (webview && captureInstalled) {
                     await browser.switchContext(webview)
                     await collectAnalyticsEvents(browser)

@@ -14,9 +14,9 @@
   "scripts": {
     "wdio": "wdio run ./wdio.conf.js",
     "wdio:androidbs": "set -a && source .env && set +a && wdio run ./config/wdio.androidbs.conf.js",
-    "wdio:browserstack": "set -a && source .env && set +a && wdio run ./wdio.browserstack.conf.js",
-    "wdio:browserstack:login": "set -a && source .env && set +a && wdio run ./wdio.browserstack.conf.js --spec test/specs/TC007_LoginFlowValid.spec.js",
-    "wdio:browserstack:homepage": "set -a && source .env && set +a && wdio run ./wdio.browserstack.conf.js --spec test/specs/android/TC001_HomepageLoad.spec.js",
+    "wdio:browserstack": "set -a && source .env && set +a && wdio run ./config/wdio.browserstack.conf.js",
+    "wdio:browserstack:login": "set -a && source .env && set +a && wdio run ./config/wdio.browserstack.conf.js --spec test/specs/android/TC007_LoginFlowValid.spec.js",
+    "wdio:browserstack:homepage": "set -a && source .env && set +a && wdio run ./config/wdio.browserstack.conf.js --spec test/specs/android/TC001_HomepageLoad.spec.js",
     "wdio:analytics": "set -a && source .env && set +a && wdio run ./config/wdio.analytics.conf.js"
   }
 }
