@@ -38,7 +38,7 @@ export const config = {
     // of the config file unless it's absolute.
     //
     specs: [
-        './test/specs/android2'
+        './test/specs/android'
     ],
     // Patterns to exclude.
     exclude: [
@@ -66,14 +66,26 @@ export const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [{
-        // capabilities for local Appium web tests on an Android Emulator
-        platformName: 'Android',
-        browserName: 'Chrome',
-        'appium:deviceName': 'Android GoogleAPI Emulator',
-        'appium:platformVersion': '12.0',
-        'appium:automationName': 'UiAutomator2'
-    }],
+    capabilities: [
+        {
+            // capabilities for local Appium web tests on an Android Emulator
+            platformName: 'Android',
+            browserName: 'Chrome',
+            'appium:deviceName': 'Android GoogleAPI Emulator',
+            'appium:platformVersion': '12.0',
+            'appium:automationName': 'UiAutomator2'
+        },
+        {
+            // capabilities for local Appium web tests on an iOSEmulator
+            // platformName: 'iOS',
+            // browserName: 'Chrome',
+            // 'appium:deviceName': 'iPhone 17 Pro',
+            // 'appium:platformVersion': '26.5',
+            // 'appium:app': path.join(process.cwd(), 'apps/iOS/CNN 3.ipa'),
+            // 'appium:automationName': 'XCUITest',
+            // 'appium:udid': 'BB13FBF1-A82D-4316-A452-089E34F15513'
+        }
+    ],
 
     //
     // ===================
@@ -151,7 +163,7 @@ export const config = {
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000
+        timeout: 120000
     },
 
     //

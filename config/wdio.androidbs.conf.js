@@ -35,6 +35,7 @@ user: process.env.BROWSERSTACK_USERNAME,
 key: process.env.BROWSERSTACK_ACCESS_KEY,
 specs: [
     '../test/specs/android/TC001_HomepageLoad.spec.js'
+    
 ],
 capabilities: [
     {

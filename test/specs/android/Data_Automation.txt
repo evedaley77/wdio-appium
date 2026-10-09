@@ -5,4 +5,4 @@ Capabilities for Browserstack
 
 Browserstack Details:
 appPath:
-bs://80f493115cc62846da02817b1b293a346976087f
+bs://4209159c07672b2063bdec2a5d5bb32c8a94e837
