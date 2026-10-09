@@ -11,8 +11,8 @@ describe('TC-020: Settings from Homepage', () => {
         // Wait for app to fully launch past splash screen.
         await browser.pause(5000)
 
-        const contentFeed = await $('//androidx.recyclerview.widget.RecyclerView[@resource-id="com.cnn.mobile.android.phone:id/recycler_view"]')
-        const mainContainer = await $('//android.widget.FrameLayout[@resource-id="com.cnn.mobile.android.phone:id/container"]')
+        const contentFeed = await $('//android.widget.ScrollView')
+        const mainContainer = await $('//androidx.compose.ui.platform.ComposeView')
         const homeTab = await $('~Home')
        // const settingsTabElement = await $('//android.view.View[@content-desc="Settings"]')
         const agreeSelector = '//android.widget.Button[@text="AGREE"] | //android.widget.TextView[@text="AGREE"] | //*[@text="AGREE"]'
@@ -78,9 +78,9 @@ describe('TC-020: Settings from Homepage', () => {
         })
 
         // Verify the homepage surfaces remain visible after initial rendering.
-        const bottomNav = await $('//*[@resource-id="com.cnn.mobile.android.phone:id/bottom_navigation"]')
+        const bottomNav = await $('~Home')
         const bottomNavVisible = await bottomNav.isDisplayed().catch(() => false)
-        console.log('[TC-001] Bottom nav visible:', bottomNavVisible)
+        console.log('[TC-020] Bottom nav visible:', bottomNavVisible)
 
         await expect(homeTab).toBeDisplayed()
         const homepageSurfaceVisible = await mainContainer.isDisplayed().catch(() => false) ||
@@ -99,13 +99,13 @@ describe('TC-020: Settings from Homepage', () => {
                 const analyticsEvents = await browser.execute(() => {
                     return window.__wdioAnalyticsEvents || []
                 })
-                console.log('[TC-001] Analytics events captured:', JSON.stringify(analyticsEvents.slice(0, 5)))
+                console.log('[TC-020] Analytics events captured:', JSON.stringify(analyticsEvents.slice(0, 5)))
             } finally {
                 await browser.switchContext('NATIVE_APP')
             }
         }
 
-        console.log('[TC-001] Homepage loaded successfully')
+        console.log('[TC-020] Homepage loaded successfully')
 
         // Open Settings from the bottom navigation after the homepage is ready.
         //const settingsTab = await $('~Settings')
@@ -141,6 +141,6 @@ describe('TC-020: Settings from Homepage', () => {
             timeoutMsg: 'No subscription plan option was displayed after selecting Subscribe'
         })
         await planOption.click()
-        console.log('[TC-001] Settings opened, Subscribe selected, and a plan option clicked')
+        console.log('[TC-020] Settings opened, Subscribe selected, and a plan option clicked')
     })
 })

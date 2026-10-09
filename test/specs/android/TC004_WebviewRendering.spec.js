@@ -76,7 +76,7 @@ describe('TC-004: Webview Rendering', () => {
         } else {
             console.log('[TC-004] No WEBVIEW context available — validating native layout only')
             // Validate native layout is not broken
-            const bottomNav = await $('//android.widget.LinearLayout[@resource-id="com.cnn.mobile.android.phone:id/bottom_navigation"]')
+            const bottomNav = await $('~Home')
             await expect(bottomNav).toBeDisplayed()
         }
 

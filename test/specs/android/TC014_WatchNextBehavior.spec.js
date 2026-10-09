@@ -27,7 +27,7 @@ describe('TC-014: Watch Next Behavior', () => {
     it('should show Watch Next recommendations after selecting a video', async () => {
 
         // Navigate to Watch tab
-        const watchTab = await $('//android.widget.TextView[@text="Watch"]')
+        const watchTab = await $('~Watch')
         await expect(watchTab).toBeDisplayed()
         await watchTab.click()
         await browser.pause(4000)

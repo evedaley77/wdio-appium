@@ -27,7 +27,7 @@ describe('TC-013: Watch Tab Navigation', () => {
     it('should navigate to Watch tab and load the video hub', async () => {
 
         // Click the Watch tab in bottom navigation
-        const watchTab = await $('//android.widget.TextView[@text="Watch"]')
+        const watchTab = await $('~Watch')
         await expect(watchTab).toBeDisplayed()
         await watchTab.click()
         await browser.pause(4000)

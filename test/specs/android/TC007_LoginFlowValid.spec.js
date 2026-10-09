@@ -44,11 +44,11 @@ describe('TC-007: Login Flow (Valid User)', () => {
         const testPassword = process.env.CNN_TEST_PASSWORD || 'TestPassword123!'
 
         // Navigate to profile/sign-in tab
-        const profileTab = await $('//android.widget.TextView[@resource-id="com.cnn.mobile.android.phone:id/navigation_profile"]')
+        const profileTab = await $('~Settings')
         if (await profileTab.isDisplayed().catch(() => false)) {
             await profileTab.click()
         } else {
-            const navItems = await $$('//android.widget.FrameLayout[@resource-id="com.cnn.mobile.android.phone:id/navigation_bar_item_icon_view"]')
+            const navItems = await $$('//android.view.View[@content-desc="Home" or @content-desc="Magic Wall" or @content-desc="Watch" or @content-desc="Audio" or @content-desc="Settings"]')
             if (navItems.length > 0) await navItems[navItems.length - 1].click()
         }
         await browser.pause(3000)

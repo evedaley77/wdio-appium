@@ -155,7 +155,7 @@ describe('TC-001: Homepage Load', () => {
         }
 
         // Verify the homepage surfaces remain visible after initial rendering.
-        const bottomNav = await $('//*[@resource-id="com.cnn.mobile.android.phone:id/bottom_navigation"]')
+        const bottomNav = await $('~Home')
         const bottomNavVisible = await bottomNav.isDisplayed().catch(() => false)
         console.log('[TC-001] Bottom nav visible:', bottomNavVisible)
 

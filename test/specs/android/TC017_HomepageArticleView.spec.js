@@ -14,7 +14,7 @@
  * Platform: Android
  */
 
-import { installAnalyticsCapture, collectAnalyticsEvents } from '../support/analytics.capture.js'
+import { installAnalyticsCapture, collectAnalyticsEvents } from '../../support/analytics.capture.js'
 
 // ---------------------------------------------------------------------------
 // Helpers

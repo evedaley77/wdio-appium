@@ -101,10 +101,10 @@ describe('CNN US Android App - Page View User Journey', () => {
         await tapAt(232, 422)
         await browser.pause(4000)
 
-        const username = process.env.CNN_USERNAME
-        const password = process.env.CNN_PASSWORD
+        const username = process.env.CNN_TEST_EMAIL
+        const password = process.env.CNN_TEST_PASSWORD
         if (!username || !password) {
-            throw new Error('CNN_USERNAME and CNN_PASSWORD must be set to run the sign-in portion of TC018')
+            throw new Error('CNN_TEST_EMAIL and CNN_TEST_PASSWORD must be set to run the sign-in portion of TC018')
         }
 
         const usernameInput = await $(selectors.username)
