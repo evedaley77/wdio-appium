@@ -12,9 +12,11 @@
 
 import { createAnalyticsHooks } from '../test/support/analytics.capture.js'
 import { createNetworkLogHooks } from '../test/support/network.logs.js'
+import { createBaselineReport } from '../test/support/baseline.report.js'
 
 const analyticsHooks = createAnalyticsHooks()
 const networkLogHooks = createNetworkLogHooks()
+const baselineReport = createBaselineReport({ configFile: 'config/wdio.browserstack.conf.js' })
 
 export const config = {
     // ==================
@@ -131,5 +133,11 @@ export const config = {
     },
     afterCommand: analyticsHooks.afterCommand,
     after: analyticsHooks.after,
-    afterSession: networkLogHooks.afterSession
+    afterSession: networkLogHooks.afterSession,
+
+    // ==================
+    // Hooks (baseline report)
+    // ==================
+    onWorkerEnd: baselineReport.onWorkerEnd,
+    onComplete: baselineReport.onComplete
 }

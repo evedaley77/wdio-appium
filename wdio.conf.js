@@ -1,3 +1,7 @@
+import { createBaselineReport } from './test/support/baseline.report.js'
+
+const baselineReport = createBaselineReport({ configFile: 'wdio.conf.js' })
+
 export const config = {
     //
     // ====================
@@ -199,8 +203,7 @@ export const config = {
      * @param  {object} specs    specs to be run in the worker process
      * @param  {number} retries  number of retries used
      */
-    // onWorkerEnd: function (cid, exitCode, specs, retries) {
-    // },
+    onWorkerEnd: baselineReport.onWorkerEnd,
     /**
      * Gets executed just before initialising the webdriver session and test framework. It allows you
      * to manipulate configurations depending on the capability or spec.
@@ -304,8 +307,7 @@ export const config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+    onComplete: baselineReport.onComplete,
     /**
     * Gets executed when a refresh happens.
     * @param {string} oldSessionId session ID of the old session

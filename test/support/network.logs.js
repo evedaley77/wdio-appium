@@ -2,6 +2,14 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 const SESSIONS_ENDPOINT = 'https://api.browserstack.com/app-automate/sessions'
+
+// Lets the baseline report detect whether a config actually downloads the HAR
+// instead of assuming network logging is on. WebdriverIO binds hook functions
+// while normalizing the config, which drops the symbol but keeps the name, so
+// both markers are published.
+export const NETWORK_LOG_HOOK = Symbol.for('wdio-appium.networkLogHook')
+export const NETWORK_LOG_HOOK_NAME = 'downloadBrowserStackHar'
+
 const ANALYTICS_PATTERN = /omtrdc\.net|2o7\.net|adobedtm\.com|adobe\.com\/b\/ss|com\.snowplowanalytics\.snowplow\/tp2/i
 
 function outputDir () {
@@ -46,33 +54,34 @@ function countAnalyticsBeacons (har) {
 export function createNetworkLogHooks () {
     let sessionId
 
-    return {
-        // Recorded while the session is still alive; `afterSession` runs after teardown.
-        rememberSession () {
-            sessionId = browser.sessionId
-        },
-
-        async afterSession (config) {
-            if (!sessionId) return
-
-            const user = config?.user || process.env.BROWSERSTACK_USERNAME
-            const key = config?.key || process.env.BROWSERSTACK_ACCESS_KEY
-            if (!user || !key) {
-                console.warn('[network-logs] BrowserStack credentials unavailable; skipping HAR download')
-                return
-            }
-
-            const har = await fetchNetworkLog(sessionId, user, key)
-            if (!har) return
-
-            const directory = outputDir()
-            fs.mkdirSync(directory, { recursive: true })
-            const file = path.join(directory, `${sessionId}.har`)
-            fs.writeFileSync(file, har)
-
-            const beacons = countAnalyticsBeacons(har)
-            const summary = beacons === undefined ? '' : ` (${beacons} Adobe/Snowplow beacons)`
-            console.log(`[network-logs] Wrote ${file}${summary}`)
-        }
+    // Recorded while the session is still alive; `afterSession` runs after teardown.
+    function rememberSession () {
+        sessionId = browser.sessionId
     }
+
+    async function downloadBrowserStackHar (config) {
+        if (!sessionId) return
+
+        const user = config?.user || process.env.BROWSERSTACK_USERNAME
+        const key = config?.key || process.env.BROWSERSTACK_ACCESS_KEY
+        if (!user || !key) {
+            console.warn('[network-logs] BrowserStack credentials unavailable; skipping HAR download')
+            return
+        }
+
+        const har = await fetchNetworkLog(sessionId, user, key)
+        if (!har) return
+
+        const directory = outputDir()
+        fs.mkdirSync(directory, { recursive: true })
+        const file = path.join(directory, `${sessionId}.har`)
+        fs.writeFileSync(file, har)
+
+        const beacons = countAnalyticsBeacons(har)
+        const summary = beacons === undefined ? '' : ` (${beacons} Adobe/Snowplow beacons)`
+        console.log(`[network-logs] Wrote ${file}${summary}`)
+    }
+
+    downloadBrowserStackHar[NETWORK_LOG_HOOK] = true
+    return { rememberSession, afterSession: downloadBrowserStackHar }
 }

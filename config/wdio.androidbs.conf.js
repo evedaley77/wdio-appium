@@ -1,9 +1,11 @@
 import { config as baseConfig } from './wdio.conf.js'
 import { createAnalyticsHooks } from '../test/support/analytics.capture.js'
 import { createNetworkLogHooks } from '../test/support/network.logs.js'
+import { createBaselineReport } from '../test/support/baseline.report.js'
 
 const analyticsHooks = createAnalyticsHooks()
 const networkLogHooks = createNetworkLogHooks()
+const baselineReport = createBaselineReport({ configFile: 'config/wdio.androidbs.conf.js' })
 
 export const config = {
 ...baseConfig,
@@ -68,7 +70,9 @@ before: async function (capabilities, specs) {
 },
 afterCommand: analyticsHooks.afterCommand,
 after: analyticsHooks.after,
-afterSession: networkLogHooks.afterSession
+afterSession: networkLogHooks.afterSession,
+onWorkerEnd: baselineReport.onWorkerEnd,
+onComplete: baselineReport.onComplete
 
 
 
