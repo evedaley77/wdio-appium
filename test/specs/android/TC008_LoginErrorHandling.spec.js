@@ -58,7 +58,7 @@ describe('TC-008: Login Error Handling', () => {
 
         // Enter invalid credentials in WEBVIEW login form
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webview) {
             await browser.switchContext(webview)
 

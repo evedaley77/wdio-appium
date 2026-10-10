@@ -44,7 +44,7 @@ describe('TC-004: Webview Rendering', () => {
         const contexts = await browser.getContexts()
         console.log('[TC-004] Available contexts:', JSON.stringify(contexts))
 
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webview) {
             await browser.switchContext(webview)
 

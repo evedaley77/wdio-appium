@@ -37,12 +37,15 @@ describe('TC-015: For You - Personalized Content Visibility', () => {
             // Fallback: scroll homepage to find For You section
             const { width, height } = await driver.getWindowSize()
             for (let i = 0; i < 3; i++) {
-                await driver.action('pointer')
-                    .move({ duration: 0, x: Math.floor(width / 2), y: Math.floor(height * 0.7) })
-                    .down({ button: 0 })
-                    .move({ duration: 500, x: Math.floor(width / 2), y: Math.floor(height * 0.3) })
-                    .up({ button: 0 })
-                    .perform()
+                await driver.execute('mobile: swipeGesture', {
+                    left: 0,
+                    top: Math.floor(height * 0.3),
+                    width,
+                    height: Math.floor(height * 0.4),
+                    direction: 'up',
+                    percent: 1.0,
+                    speed: 2000
+                })
                 await browser.pause(1000)
             }
         }
@@ -53,7 +56,7 @@ describe('TC-015: For You - Personalized Content Visibility', () => {
 
         // Validate analytics in WEBVIEW
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webview) {
             await browser.switchContext(webview)
             const analyticsEvents = await browser.execute(() => window.__wdioAnalyticsEvents || [])

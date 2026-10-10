@@ -74,7 +74,7 @@ describe('TC-003: Homepage Navigation', () => {
         await expect(articleContainer).toBeDisplayed()
 
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
 
         if (webview) {
             await browser.switchContext(webview)

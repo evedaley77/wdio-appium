@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const SESSIONS_ENDPOINT = 'https://api.browserstack.com/app-automate/sessions'
+const SESSIONS_ENDPOINT = 'https://api-cloud.browserstack.com/app-automate/sessions'
 
 // Lets the baseline report detect whether a config actually downloads the HAR
 // instead of assuming network logging is on. WebdriverIO binds hook functions

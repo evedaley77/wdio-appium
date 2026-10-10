@@ -40,7 +40,7 @@ describe('TC-012: Live Content Refresh Behavior', () => {
         // Capture session ID before refresh
         let sessionIdBefore = null
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webview) {
             await browser.switchContext(webview)
             const eventsBefore = await browser.execute(() => window.__wdioAnalyticsEvents || [])
@@ -65,7 +65,7 @@ describe('TC-012: Live Content Refresh Behavior', () => {
 
         // Validate analytics after refresh — session should persist
         const contextsAfter = await browser.getContexts()
-        const webviewAfter = contextsAfter.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webviewAfter = contextsAfter.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webviewAfter) {
             await browser.switchContext(webviewAfter)
             const eventsAfter = await browser.execute(() => window.__wdioAnalyticsEvents || [])

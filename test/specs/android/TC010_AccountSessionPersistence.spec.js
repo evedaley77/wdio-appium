@@ -46,7 +46,7 @@ describe('TC-010: Account Session Persistence', () => {
         }
 
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webview) {
             await browser.switchContext(webview)
             const emailInput = await $('input[type="email"]')
@@ -62,7 +62,9 @@ describe('TC-010: Account Session Persistence', () => {
         }
 
         // Background the app for 3 seconds then restore
-        await driver.background(3)
+        await driver.terminateApp('com.cnn.mobile.android.phone')
+        await browser.pause(3000)
+        await driver.activateApp('com.cnn.mobile.android.phone')
         await browser.pause(3000)
 
         // Verify Sign In button is NOT visible — user still logged in
@@ -78,7 +80,7 @@ describe('TC-010: Account Session Persistence', () => {
 
         // Validate session ID persists in analytics
         const contextsAfter = await browser.getContexts()
-        const webviewAfter = contextsAfter.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webviewAfter = contextsAfter.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webviewAfter) {
             await browser.switchContext(webviewAfter)
             const eventsAfter = await browser.execute(() => window.__wdioAnalyticsEvents || [])

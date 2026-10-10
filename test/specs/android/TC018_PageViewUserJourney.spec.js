@@ -10,7 +10,7 @@ const selectors = {
     next: "//android.widget.ScrollView//android.widget.TextView[@text='Next' or @text='NEXT']",
     skipAlerts: "//androidx.compose.ui.platform.ComposeView//android.widget.TextView[@text='Skip (No Alerts)']",
     agree: "//*[@clickable='true' and (contains(@text,'Agree') or contains(@text,'AGREE'))]",
-    breakingNewsDismiss: 'new UiSelector().resourceId("com.cnn.mobile.android.phone:id/image_view_breaking_news_banner_dismiss").className("android.widget.ImageView")',
+    breakingNewsDismiss: 'android=new UiSelector().resourceId("com.cnn.mobile.android.phone:id/image_view_breaking_news_banner_dismiss").className("android.widget.ImageView")',
     tooltipClose: "//android.view.ViewGroup//android.widget.ImageView[@content-desc='Close' and @clickable='true']",
     homeFeed: '//androidx.recyclerview.widget.RecyclerView[@resource-id="com.cnn.mobile.android.phone:id/recycler_view"]',
     magicWall: "//*[contains(@text,'Magic Wall') or contains(@content-desc,'Magic Wall')]",
@@ -53,7 +53,7 @@ async function completeOnboarding () {
 
 async function installCapture () {
     const contexts = await browser.getContexts()
-    const webview = contexts.find(context => context.startsWith('WEBVIEW'))
+    const webview = contexts.find(context => context.startsWith('WEBVIEW_com.cnn'))
     if (!webview) return false
 
     await browser.switchContext(webview)
@@ -64,7 +64,7 @@ async function installCapture () {
 
 async function collectCapturedAnalytics () {
     const contexts = await browser.getContexts()
-    const webview = contexts.find(context => context.startsWith('WEBVIEW'))
+    const webview = contexts.find(context => context.startsWith('WEBVIEW_com.cnn'))
     if (!webview) return []
 
     await browser.switchContext(webview)

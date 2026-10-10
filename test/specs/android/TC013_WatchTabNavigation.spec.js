@@ -38,7 +38,7 @@ describe('TC-013: Watch Tab Navigation', () => {
 
         // Validate analytics in WEBVIEW
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webview) {
             await browser.switchContext(webview)
             const currentUrl = await browser.getUrl()

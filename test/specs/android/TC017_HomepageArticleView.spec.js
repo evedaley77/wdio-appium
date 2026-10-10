@@ -58,7 +58,7 @@ async function completeOnboarding () {
 async function installAnalyticsInWebview () {
     try {
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (!webview) return false
         await browser.switchContext(webview)
         await installAnalyticsCapture(browser)
@@ -73,7 +73,7 @@ async function installAnalyticsInWebview () {
 
 async function harvestAnalyticsEvents () {
     const contexts = await browser.getContexts()
-    const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+    const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
     if (!webview) return []
     await browser.switchContext(webview)
     const events = await collectAnalyticsEvents(browser)
@@ -155,7 +155,7 @@ describe('TC017: Anonymous User Views Homepage Article (CNNAPP-45678)', () => {
         const events = await harvestAnalyticsEvents()
 
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         let rawEvents = []
         if (webview) {
             await browser.switchContext(webview)

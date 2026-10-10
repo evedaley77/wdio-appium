@@ -71,7 +71,7 @@ describe('TC-006: Article Scroll Interaction / Scroll Depth', () => {
 
         // Validate scroll depth analytics in WEBVIEW
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webview) {
             await browser.switchContext(webview)
             const analyticsEvents = await browser.execute(() => window.__wdioAnalyticsEvents || [])

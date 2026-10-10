@@ -55,7 +55,7 @@ describe('TC-002: Homepage Content Rendering', () => {
 
         // Validate analytics in WEBVIEW context
         const contexts = await browser.getContexts()
-        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW'))
+        const webview = contexts.find(ctx => ctx.startsWith('WEBVIEW_com.cnn'))
         if (webview) {
             await browser.switchContext(webview)
 
