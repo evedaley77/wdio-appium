@@ -1,13 +1,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-const defaultPatterns = {
+export const defaultPatterns = {
     adobe: /(?:omtrdc\.net|2o7\.net|adobedtm\.com|adobe\.com\/b\/ss)/i,
     zion: /zion/i,
     snowplow: /com\.snowplowanalytics\.snowplow\/tp2/i
 }
 
-function patternsFromEnvironment () {
+export function patternsFromEnvironment () {
     const configured = process.env.ANALYTICS_URL_PATTERNS
     if (!configured) {
         return defaultPatterns
@@ -22,7 +22,7 @@ function patternsFromEnvironment () {
     }, { ...defaultPatterns })
 }
 
-function classify (url, patterns) {
+export function classify (url, patterns) {
     return Object.entries(patterns)
         .filter(([, pattern]) => pattern.test(url))
         .map(([name]) => name)

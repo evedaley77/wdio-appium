@@ -1,10 +1,12 @@
 import { config as baseConfig } from './wdio.conf.js'
 import { createAnalyticsHooks } from '../test/support/analytics.capture.js'
 import { createNetworkLogHooks } from '../test/support/network.logs.js'
+import { createPageCaptureHooks } from '../test/support/page.capture.js'
 import { createBaselineReport } from '../test/support/baseline.report.js'
 
 const analyticsHooks = createAnalyticsHooks()
 const networkLogHooks = createNetworkLogHooks()
+const pageCaptureHooks = createPageCaptureHooks()
 const baselineReport = createBaselineReport({ configFile: 'config/wdio.androidbs.conf.js' })
 
 export const config = {
@@ -60,15 +62,18 @@ capabilities: [
             sessionName: 'TC-001 Homepage Load',
             debug: true,
             networkLogs: true,
+            networkLogsOptions: { captureContent: true },
             deviceLogs: true
         }
     }
 ],
 before: async function (capabilities, specs) {
-    networkLogHooks.rememberSession()
+    networkLogHooks.rememberSession(capabilities, specs)
+    pageCaptureHooks.before(capabilities, specs)
     await analyticsHooks.before(capabilities, specs)
 },
 afterCommand: analyticsHooks.afterCommand,
+afterTest: pageCaptureHooks.afterTest,
 after: analyticsHooks.after,
 afterSession: networkLogHooks.afterSession,
 onWorkerEnd: baselineReport.onWorkerEnd,

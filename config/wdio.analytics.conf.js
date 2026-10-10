@@ -4,9 +4,11 @@
  */
 import { config as baseConfig } from './wdio.conf.js'
 import { createNetworkLogHooks } from '../test/support/network.logs.js'
+import { createPageCaptureHooks } from '../test/support/page.capture.js'
 import { createBaselineReport } from '../test/support/baseline.report.js'
 
 const networkLogHooks = createNetworkLogHooks()
+const pageCaptureHooks = createPageCaptureHooks()
 const baselineReport = createBaselineReport({ configFile: 'config/wdio.analytics.conf.js' })
 
 export const config = {
@@ -63,6 +65,7 @@ export const config = {
                 sessionName: 'TC-019 Analytics Journey',
                 debug: true,
                 networkLogs: true,
+                networkLogsOptions: { captureContent: true },
                 deviceLogs: true
             }
         }
@@ -73,7 +76,11 @@ export const config = {
         timeout: 180000
     },
 
-    before: networkLogHooks.rememberSession,
+    before: function (capabilities, specs) {
+        networkLogHooks.rememberSession(capabilities, specs)
+        pageCaptureHooks.before(capabilities, specs)
+    },
+    afterTest: pageCaptureHooks.afterTest,
     afterSession: networkLogHooks.afterSession,
     onWorkerEnd: baselineReport.onWorkerEnd,
     onComplete: baselineReport.onComplete
