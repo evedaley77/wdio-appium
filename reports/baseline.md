@@ -8,25 +8,59 @@ Appium 3.7.0
 BrowserStack SDK 9.35.2
 
 Android Tests:
-NOT YET MEASURED
+40
 
 Pass:
-NOT YET MEASURED
+2
 
 Fail:
-NOT YET MEASURED
+38
 
 Confirm Network logging:
-NOT YET MEASURED
+Enabled
 
 Known issues:
-- CNN app content-load flakiness: the app intermittently renders "Something went wrong" / "The content you requested either failed to load or is unavailable. Tap Try Again to reload this content." This is the dominant failure mode and it is application-side, not framework-side.
-- Historical aggregate pass rate is ~52% (65 passed / 61 failed across 126 sessions recorded in log/sdk-cli.log). TC-001 alone is 28 passed / 29 failed. These are historical log-derived figures, not the result of a run of this baseline.
-- 15 of the 20 Android specs have zero recorded executions on BrowserStack. Only TC-001, TC-003, TC-005, TC-007 and TC-019 have ever run; TC-002, TC-004, TC-006, TC-008, TC-010, TC-011, TC-012, TC-013, TC-014, TC-015, TC-016, TC-017, TC-018, TC-020 and TC-021 have not.
-- Network logging is configured but unconfirmed: config/wdio.androidbs.conf.js, config/wdio.analytics.conf.js and config/wdio.browserstack.conf.js all set bstack:options.networkLogs true and wire the HAR download afterSession hook, but no run has been able to produce a HAR. The root wdio.conf.js (local Appium) does neither, so it will always report Disabled.
+- Failed spec: test/specs/android/TC001_HomepageLoad.spec.js (worker 1-0, exit code 1)
+- Failed spec: test/specs/android/TC001_HomepageLoad.spec.js (worker 0-0, exit code 1)
+- Failed spec: test/specs/android/TC002_HomepageContentRendering.spec.js (worker 1-1, exit code 1)
+- Failed spec: test/specs/android/TC002_HomepageContentRendering.spec.js (worker 0-1, exit code 1)
+- Failed spec: test/specs/android/TC003_HomepageNavigation.spec.js (worker 0-2, exit code 1)
+- Failed spec: test/specs/android/TC003_HomepageNavigation.spec.js (worker 1-2, exit code 1)
+- Failed spec: test/specs/android/TC004_WebviewRendering.spec.js (worker 0-3, exit code 1)
+- Failed spec: test/specs/android/TC004_WebviewRendering.spec.js (worker 1-3, exit code 1)
+- Failed spec: test/specs/android/TC005_ArticlePageLoad.spec.js (worker 1-4, exit code 1)
+- Failed spec: test/specs/android/TC005_ArticlePageLoad.spec.js (worker 0-4, exit code 1)
+- Failed spec: test/specs/android/TC006_ArticleScrollDepth.spec.js (worker 1-5, exit code 1)
+- Failed spec: test/specs/android/TC006_ArticleScrollDepth.spec.js (worker 0-5, exit code 1)
+- Failed spec: test/specs/android/TC007_LoginFlowValid.spec.js (worker 0-6, exit code 1)
+- Failed spec: test/specs/android/TC008_LoginErrorHandling.spec.js (worker 0-7, exit code 1)
+- Failed spec: test/specs/android/TC010_AccountSessionPersistence.spec.js (worker 1-8, exit code 1)
+- Failed spec: test/specs/android/TC010_AccountSessionPersistence.spec.js (worker 0-8, exit code 1)
+- Failed spec: test/specs/android/TC011_LiveUpdatesAccess.spec.js (worker 1-9, exit code 1)
+- Failed spec: test/specs/android/TC011_LiveUpdatesAccess.spec.js (worker 0-9, exit code 1)
+- Failed spec: test/specs/android/TC012_LiveContentRefresh.spec.js (worker 1-10, exit code 1)
+- Failed spec: test/specs/android/TC012_LiveContentRefresh.spec.js (worker 0-10, exit code 1)
+- Failed spec: test/specs/android/TC013_WatchTabNavigation.spec.js (worker 1-11, exit code 1)
+- Failed spec: test/specs/android/TC013_WatchTabNavigation.spec.js (worker 0-11, exit code 1)
+- Failed spec: test/specs/android/TC014_WatchNextBehavior.spec.js (worker 1-12, exit code 1)
+- Failed spec: test/specs/android/TC014_WatchNextBehavior.spec.js (worker 0-12, exit code 1)
+- Failed spec: test/specs/android/TC015_ForYouPersonalizedContent.spec.js (worker 1-13, exit code 1)
+- Failed spec: test/specs/android/TC015_ForYouPersonalizedContent.spec.js (worker 0-13, exit code 1)
+- Failed spec: test/specs/android/TC016_ForYouPersonalizedBehavior.spec.js (worker 1-14, exit code 1)
+- Failed spec: test/specs/android/TC016_ForYouPersonalizedBehavior.spec.js (worker 0-14, exit code 1)
+- Failed spec: test/specs/android/TC017_HomepageArticleView.spec.js (worker 1-15, exit code 1)
+- Failed spec: test/specs/android/TC017_HomepageArticleView.spec.js (worker 0-15, exit code 1)
+- Failed spec: test/specs/android/TC018_PageViewUserJourney.spec.js (worker 1-16, exit code 1)
+- Failed spec: test/specs/android/TC018_PageViewUserJourney.spec.js (worker 0-16, exit code 1)
+- Failed spec: test/specs/android/TC019_AnalyticsJourney.spec.js (worker 1-17, exit code 1)
+- Failed spec: test/specs/android/TC019_AnalyticsJourney.spec.js (worker 0-17, exit code 1)
+- Failed spec: test/specs/android/TC020_SettingsFromHomepage.spec.js (worker 1-18, exit code 1)
+- Failed spec: test/specs/android/TC020_SettingsFromHomepage.spec.js (worker 0-18, exit code 1)
+- Failed spec: test/specs/android/TC021_LoginFlow.spec.js (worker 1-19, exit code 1)
+- Failed spec: test/specs/android/TC021_LoginFlow.spec.js (worker 0-19, exit code 1)
 
 Notes:
-- No test run has produced this file. BrowserStack is unreachable from the environment where this baseline was authored (DNS for *.browserstack.com fails with ENOTFOUND), so every count above is literally NOT YET MEASURED rather than estimated.
-- The framework versions above were read from the installed node_modules tree on the authoring machine. The generated report reads them at runtime from the environment that actually runs the suite, so they may differ.
-- To replace this file with measured numbers, run any of the wired configs (for example `npm run wdio:androidbs`, `npm run wdio:analytics` or `npm run wdio:browserstack`) from a network where BrowserStack is reachable. The onComplete hook in test/support/baseline.report.js overwrites reports/baseline.md and writes reports/baseline.json from the launcher's real results.
-- Counts in the generated report are spec-file level, which is the granularity the WebdriverIO launcher reports to onComplete.
+- Generated from a real run at 2026-10-09T23:49:53.788Z.
+- Config file: config/wdio.browserstack.conf.js
+- Counts are spec-file level, which is the granularity the WebdriverIO launcher reports to onComplete.
+- Skipped spec files: 0. Retried spec files: 0. Launcher exit code: 1.
