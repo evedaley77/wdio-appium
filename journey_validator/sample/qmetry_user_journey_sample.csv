@@ -1,0 +1,43 @@
+Key,Summary,Priority,Status,Test Type,Platform,Step Summary,Test Data,Expected Result,Test Cycle
+DART-TC-1,Homepage Load,P0,Done,Regression,"Android, iOS",Launch the CNN app and dismiss onboarding,U.S. Edition,Onboarding is dismissed and the app opens,BAU Regression - Oct 2026; BAU Regression - Nov 2026
+,,,,,,Wait for the homepage feed to load,,Homepage content feed is displayed,
+,,,,,,Inspect analytics network calls,,A Pageview analytics event fires,
+DART-TC-2,Homepage Content Rendering,P0,Done,Regression,"Android, iOS",Open the homepage,,Homepage is displayed,BAU Regression - Oct 2026; BAU Regression - Nov 2026
+,,,,,,Review top stories,,"Top stories, images, and headlines are displayed",
+DART-TC-3,Homepage Navigation,P0,Done,Regression,"Android, iOS",Tap an article from the homepage,,Article page opens,BAU Regression - Oct 2026
+,,,,,,Tap Back,,User returns to the homepage,
+DART-TC-4,Webview Rendering,P0,In Progress,Functional,"Android, iOS, Web",Open CNN.com in the in-app webview,https://www.cnn.com,CNN.com renders with the correct layout,BAU Regression - Nov 2026
+,,,,,,Inspect analytics network calls,,Webview analytics events fire,
+DART-TC-5,Article Page Load,P0,Done,Regression,"Android, iOS",Open an article,,Full article content is displayed,BAU Regression - Oct 2026; BAU Regression - Nov 2026
+,,,,,,Inspect analytics network calls,,Article analytics event fires,
+DART-TC-6,Article Scroll Interaction / Scroll Depth,P0,Done,Regression,"Android, iOS",Open an article,,Article page is displayed,BAU Regression - Nov 2026
+,,,,,,Scroll to 25/50/75/100% of the article,,Scroll depth analytics events fire at each threshold,
+DART-TC-7,Login Flow (Valid User),P0,Done,Functional,"Android, iOS",Open Sign In,,Login screen is displayed,BAU Regression - Oct 2026; BAU Regression - Nov 2026
+,,,,,,Enter valid credentials and submit,Valid test account,User is logged in,
+,,,,,,Inspect analytics network calls,,LoginSuccessful event fires,
+DART-TC-8,Login Error Handling,P0,Done,Functional,"Android, iOS",Open Sign In,,Login screen is displayed,BAU Regression - Oct 2026
+,,,,,,Enter invalid credentials and submit,Invalid password,Error message is displayed,
+,,,,,,Inspect analytics network calls,,LoginError event fires,
+DART-TC-10,Account Session Persistence,P0,Done,Regression,"Android, iOS",Log in with a valid account,Valid test account,User is logged in,BAU Regression - Nov 2026
+,,,,,,Background and restore the app,,User remains logged in,
+DART-TC-11,Live Updates Access,P0,To Do,Regression,"Android, iOS",Open the live/breaking news module,,Live coverage page loads,BAU Regression - Nov 2026
+DART-TC-12,Live Content Refresh Behavior,P0,To Do,Regression,"Android, iOS",Open a live story,,Live story is displayed,BAU Regression - Nov 2026
+,,,,,,Refresh the live content,,Content refreshes and the session ID stays the same,
+DART-TC-13,Watch Tab Navigation,P0,To Do,Regression,"Android, iOS",Tap the Watch tab,,Video hub loads,BAU Regression - Oct 2026
+DART-TC-14,Watch Next Behavior,P0,To Do,Regression,"Android, iOS",Select a video in Watch,,Video plays,BAU Regression - Oct 2026
+,,,,,,Wait for the video to progress,,Watch Next recommendations are displayed,
+DART-TC-15,For You - Personalized Content Visibility,P0,To Do,Functional,"Android, iOS",Open the For You section,,Personalized content is displayed,BAU Regression - Nov 2026
+DART-TC-16,For You - Personalized Content Behavior,P0,To Do,Functional,"Android, iOS",Engage with content,,Engagement is recorded,BAU Regression - Nov 2026
+,,,,,,Return to For You,,Recommendations are updated,
+DART-TC-17,Anonymous User Views Homepage Article,P0,In Progress,Regression,"Android, iOS",Load the homepage,,At least one article is displayed,BAU Regression - Nov 2026
+,,,,,,Tap a headline,,Hero article is displayed,
+,,,,,,Scroll through the article,,Article scrolls,
+,,,,,,Inspect analytics network calls,,"Adobe, Zion, and Nova article-load events fire",
+DART-TC-18,Page View User Journey,P0,In Progress,Regression,"Android, iOS",Navigate through the homepage journey,,Each page fires a Page View event,BAU Regression - Nov 2026
+,,,,,,Sign in,Valid test account,User is signed in,
+DART-TC-19,CNN Analytics Journey,P0,In Progress,Regression,"Android, iOS",Open the CNN homepage,,Page View event fires,BAU Regression - Nov 2026
+,,,,,,Open a Live Story,,Live Story Page View event fires,
+,,,,,,Scroll the article,,Scroll Depth events fire at 25/50/75/100%,
+,,,,,,Return to the home feed,,Session state persists,
+,,,,,,Review the analytics payload,,Anonymous user state and Adobe/Zion data are consistent,
+DART-TC-20,Settings from Homepage,P0,To Do,Functional,"Android, iOS",Open Settings from the homepage,,Settings screen is displayed,BAU Regression - Oct 2026

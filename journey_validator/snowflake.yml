@@ -1,0 +1,16 @@
+definition_version: 2
+entities:
+  journey_validator:
+    type: streamlit
+    identifier:
+      name: JOURNEY_VALIDATOR
+    title: Journey Validator
+    query_warehouse: <% ctx.env.JV_WAREHOUSE %>
+    main_file: streamlit_app.py
+    pages_dir: pages
+    artifacts:
+      - streamlit_app.py
+      - environment.yml
+      - pages/
+      - lib/
+      - .streamlit/config.toml

@@ -1,0 +1,8 @@
+name: journey_validator
+channels:
+  - snowflake
+dependencies:
+  - streamlit=1.42.0
+  - pandas
+  - openpyxl
+  - snowflake-snowpark-python
